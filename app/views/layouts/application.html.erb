@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>tirpfrom</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&amp;subset=japanese" rel="stylesheet">
+  </head>
+
+  <body>
+    <header class="navbar navbar-fixed-top">
+      <div class="container">
+        <nav class="navbar navbar-right">
+          <% if user_signed_in? %>
+           <% user_name = current_user.user_name %>
+          <% else %>
+            <% user_name = "guest" %>
+          <% end %>
+          <%= "welcome #{user_name}" %>
+        </nav>
+      </div>
+      <div class="container">
+        <nav class="navbar navbar-nav navbar-left">
+          <div class="headlinetitle">
+            <%= link_to "tripfrom", root_path %>
+          </div>
+        </nav>
+        <nav class="navbar navbar-nav navbar-right">
+          <% if user_signed_in? %>
+            <% if current_user.admin? %>
+              <li><%= link_to "admintop", admin_top_path %></li>
+              <li><%= link_to "blogs", blogs_path %></li>
+              <li><%= link_to "users", users_path %></li>
+              <li><%= link_to "posts", posts_path %></li>
+              <li><%= link_to "log_out", destroy_user_session_path, method: :delete %></li>
+            <% else %>
+              <li><%= link_to "mypage", user_path(current_user.id) %></li>
+              <li><%= link_to "post", posts_path %></li>
+              <li><%= link_to "tripfrom", posts_path %></li>
+              <li><%= link_to "blog", blogs_path %></li>
+              <li><%= link_to "log_out", destroy_user_session_path, method: :delete %></li>
+            <% end %>
+          <% else %>
+            <li><%= link_to "about", about_path %></li>
+            <li><%= link_to "blog", blogs_path %></li>
+            <li><%= link_to "sign_up", new_user_registration_path %></li>
+            <li><%= link_to "log_in", new_user_session_path %></li>
+          <% end %>
+        </nav>
+      </div>
+
+
+    </header>
+    <%= yield %>
+  </body>
+</html>
