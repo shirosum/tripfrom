@@ -1,2 +1,32 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+
+<div class="container">
+    <div class="row">
+        <div>
+            <% if current_user.admin? %>
+            <h3></h3>
+            <% else %>
+            <h3 class="user_name">
+                <%= link_to edit_user_path(@user) do %>
+                    <%= @user.user_name %>
+                <% end %>
+            </h3>
+            <div class="avatar">
+                <%= form_with model: @user, local: true do |f| %>
+                    <% if @user.avatar.attached? %>
+                        <%= image_tag @user.avatar %>
+                    <% else %>
+                        <%= image_tag 'img/no_image_user.png', :size => "200x200" %>
+                    <% end %>
+                <% end %>
+            </div>
+            <div class="my_posts">
+                <% @posts.each do |post| %>
+                    <%= link_to posts_path(post.id) do %>
+                        <%= image_tag post.image %>
+                    <% end %>
+                <% end %>
+            </div>
+            <% end %>
+        </div>
+    </div>
+</div>
