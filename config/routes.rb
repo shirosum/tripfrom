@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root 'roots#top'
   get '/about', to: 'roots#about'
   get '/admin_top', to: 'roots#admin_top'
+  get '/trip', to: 'roots#trip'
   devise_for :users
 
   resources :users, only: [:index, :show, :edit, :update, :destroy]

@@ -7,4 +7,7 @@ class RootsController < ApplicationController
 
   def admin_top
   end
+
+  def trip
+  end
 end

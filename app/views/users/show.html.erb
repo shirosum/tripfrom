@@ -19,10 +19,15 @@
                     <% end %>
                 <% end %>
             </div>
+            <h4>captures</h4>
             <div class="my_posts">
                 <% @posts.each do |post| %>
-                    <%= link_to posts_path(post.id) do %>
-                        <%= image_tag post.image %>
+                    <%= link_to post_path(post.id) do %>
+                        <% if post.captures.attached? %>
+                            <% post.captures.each do |capture| %>
+                                <%= image_tag capture %>
+                            <% end %>
+                        <% end %>
                     <% end %>
                 <% end %>
             </div>

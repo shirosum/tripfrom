@@ -38,7 +38,8 @@
             <% else %>
               <li><%= link_to "mypage", user_path(current_user.id) %></li>
               <li><%= link_to "post", posts_path %></li>
-              <li><%= link_to "tripfrom", posts_path %></li>
+              <li><%= link_to "newpost", new_post_path %></li>
+              <li><%= link_to "trip", trip_path %></li>
               <li><%= link_to "blog", blogs_path %></li>
               <li><%= link_to "log_out", destroy_user_session_path, method: :delete %></li>
             <% end %>
