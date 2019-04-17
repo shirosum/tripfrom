@@ -3,13 +3,18 @@
         <div>
             <h4>posts index</h4>
             <% @posts.each do |post| %>
-                <% if post.captures.attached? %>
-                    <% post.captures.each do |capture| %>
-                        <%= image_tag capture %>
+                <%= link_to post_path(post) do %>
+                    <% if post.captures.attached? %>
+                        <% post.captures.each do |capture| %>
+                            <%= image_tag capture %>
+                        <% end %>
                     <% end %>
                 <% end %>
-                <br><%= post.nation.nation_name %>
-                <br><%= post.caption %>
+                    <br><%= post.nation.nation_name %>
+                    <br><%= post.caption %>
+                    <div id="likes_buttons_<%= post.id %>">
+                        <%= render partial: 'likes/like', locals: { post: post, likes: @likes } %>
+                    </div>
             <% end %>
         </div>
     </div>

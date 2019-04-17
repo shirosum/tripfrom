@@ -7,6 +7,13 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
+User.create(
+    email: "admin@admin.com",
+    password: "admin.com",
+    user_name: "admin"
+    admin: true
+)
+
 Nation.create([
     {nation_name:"japan"},
     {nation_name:"algeria"},

@@ -1,0 +1,11 @@
+<div class="container">
+    <div class="row">
+        <div class="">
+            <% if @post.captures.attached? %>
+                <% @post.captures.each do |capture| %>
+                    <%= image_tag capture %>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+</div>

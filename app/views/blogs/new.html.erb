@@ -1,2 +1,18 @@
-<h1>Blogs#new</h1>
-<p>Find me in app/views/blogs/new.html.erb</p>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h3>new blog</h3>
+            <% form_with model: @blog, local: ture do |f| %>
+                <%= f.label :title %>
+                <%= f.text_field :title %>
+
+                <%= f.label :iamge %>
+                <%= f.file_field :images, multiple: true %>
+
+                <%= f.label :content %>
+                <%= f.text_area :content %>
+
+
+        </div>
+    </div>
+</div>

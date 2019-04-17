@@ -3,5 +3,5 @@ class Blog < ApplicationRecord
     has_many :comments, dependent: :destroy
     belongs_to :nation
 
-    has_many_attached :pic
+    has_many_attached :images
 end
