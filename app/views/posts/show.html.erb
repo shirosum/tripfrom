@@ -1,11 +1,32 @@
 <div class="container">
     <div class="row">
         <div class="">
-            <% if @post.captures.attached? %>
-                <% @post.captures.each do |capture| %>
-                    <%= image_tag capture %>
+            <div class="capture">
+                <% if @post.captures.attached? %>
+                    <% @post.captures.each do |capture| %>
+                        <%= image_tag capture %>
+                    <% end %>
                 <% end %>
-            <% end %>
+            </div>
+            <div class="caption">
+                <%= @post.caption %>
+            </div>
+            <div class="nation">
+                <%= @post.nation.nation_name %>
+            </div>
+            <div class="fav" id="likes_buttons_<%= @post.id %>">
+                <%= render partial: 'likes/like', locals: { post: @post, likes: @likes } %>
+            </div>
+            <div class="user-info">
+                <%= link_to user_path(@post.user_id) do %>
+                    <%= @post.user.user_name %>
+                    <% if @post.user.avatar.attached? %>
+                        <%= image_tag @post.user.avatar %>
+                    <% else %>
+                        <%= image_tag 'img/no_image_user.png', :size => "200x200" %>
+                    <% end %>
+                <% end %>
+            </div>
         </div>
     </div>
 </div>

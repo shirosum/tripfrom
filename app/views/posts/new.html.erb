@@ -5,6 +5,7 @@
             <%= form_with model: @post, local: true do |f| %>
                 <%= f.label :capture %>
                 <%= f.file_field :captures, multiple: true %><br>
+                <div class="preview"></div>
 
                 <%= f.label :caption %>
                 <%= f.text_area :caption %><br>

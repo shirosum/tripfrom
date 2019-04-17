@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
     before_action :configure_permitted_parameters, if: :devise_controller?
 
-    def after_sign_in_path(resource)
+    def after_sign_in_path_for(resource)
         if current_user.admin?
             admin_top_path
         else
@@ -9,8 +9,19 @@ class ApplicationController < ActionController::Base
         end
     end
 
-    def after_sign_out_path(resource)
+    def after_sign_out_path_for(resource)
         root_path
+    end
+
+    #管理者判定
+    def authenticate_admin
+        unless user_signed_in?
+            redirect_to root_path
+        else
+            unless current_user.admin?
+                redirect_to posts_path
+            end
+        end
     end
 
     protected

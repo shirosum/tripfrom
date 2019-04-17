@@ -18,9 +18,10 @@
 //= require_tree .
 
 $(document).on('turbolinks:load', function() {
+  // jqvmap
     $('#vmap').vectorMap({
         map: 'world_en',
-        backgroundColor: '#f1f1f1',
+        backgroundColor: '#fff',
         borderColor: 'white',
         borderOpacity: 0.1,
         color: '#ffffff',
@@ -37,5 +38,24 @@ $(document).on('turbolinks:load', function() {
           console.log(region);
           console.log(code);
         }
-      });
     });
+
+    // preview
+    $('form').on('change', 'input[type="file"]', function(e){
+      var file = e.target.files[0],
+          reader = new FileReader(),
+          $preview = $(".preview");
+
+      reader.onload = (function(file){
+          return function(e){
+            $preview.empty();
+            $preview.append($('<img>').attr({
+              src: e.target.result,
+              width: "200px",
+              class: "preview"
+            }));
+          };
+      })(file);
+      reader.readAsDataURL(file);
+    });
+});

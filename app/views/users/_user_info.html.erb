@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="row user-info">
+        <%= link_to user_path(user) do %>
+            <div class="col-xs-12">
+                <% if user.avatar.attached? %>
+                    <%= iamge_tag user.avatar, :size => "100x100" %>
+                <% else %>
+                    <%= image_tag "img/no_image_user.png", :size => "100x100" %>
+                <% end %>
+            </div>
+            <div class="col-xs-12">
+                <%= user.user_name %>
+            </div>
+        <% end %>
+        <div class="col-xs-12">
+            <%= render 'users/stats' %>
+        </div>
+        <div class="col-xs-12">
+            <%= link_to 'プロフィール', user_path(user) %>
+        </div>
+        <div class="col-xs-12">
+            <%= link_to 'コレクション' %>
+        </div>
+        <div class="col-xs-12">
+            <%= link_to '新規投稿', new_post_path %>
+        </div>
+        <div class="col-xs-12">
+            <!-- <% user.posts.each do |post| %>
+                <%= link_to post_path(post.id) do %>
+                    <% if post.captures.attached? %>
+                        <% post.captures.each do |capture| %>
+                            <%= image_tag capture %>
+                        <% end %>
+                    <% end %>
+                <% end %>
+            <% end %> -->
+        </div>
+
+    </div>
+</div>
