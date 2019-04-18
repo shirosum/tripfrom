@@ -1,0 +1,10 @@
+<div>
+    <% form_with model: [@post, @comment] do |f| %>
+        <div>
+            <%= f.text_area :comment, class: "form-control"%>
+        </div>
+        <div>
+            <%= f.submit "コメントする", class: "btn btn-default" %>
+        </div>
+    <% end %>
+</div>

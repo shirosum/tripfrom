@@ -17,7 +17,14 @@
             <div class="fav" id="likes_buttons_<%= @post.id %>">
                 <%= render partial: 'likes/like', locals: { post: @post, likes: @likes } %>
             </div>
+            <% if user_signed_in? %>
+                <% if current_user.id == @post.user_id or current_user.admin? %>
+                    <%= link_to '削除', post_path, method: :delete, "data-confirm" => "本当に削除しますか？" %>
+                    <%= link_to '編集', edit_post_path(@post) %>
+                <% end %>
+            <% end %>
             <div class="user-info">
+                <h4>投稿者</h4>
                 <%= link_to user_path(@post.user_id) do %>
                     <%= @post.user.user_name %>
                     <% if @post.user.avatar.attached? %>
@@ -25,6 +32,17 @@
                     <% else %>
                         <%= image_tag 'img/no_image_user.png', :size => "200x200" %>
                     <% end %>
+                <% end %>
+            </div>
+        </div>
+        <div class="comments">
+            <h4>コメント一覧</h4>
+            <div id="comments-index" class="comments-index">
+                <%= render partial: 'comments/index', locals: { comments: @comments } %>
+            </div>
+            <div class="comments-new">
+                <% if user_signed_in? %>
+                    <%= render partial: 'comments/form', locals: { comment: @comment, post: @post } %>
                 <% end %>
             </div>
         </div>
