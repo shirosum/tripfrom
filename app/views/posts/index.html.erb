@@ -11,7 +11,11 @@
         </div>
         <div class="col-xs-9">
             <h4>posts index</h4>
-            <% @posts.each do |post| %>
+                <div id="posts">
+                    <%= render partial: 'posts/post', collection: @posts %>
+                    <%= paginate @posts, class: "pagination" %>
+                </div>
+            <!-- <% @posts.each do |post| %>
                 <%= link_to user_path(post.user) do %>
                     <%= post.user.user_name %><br>
                 <% end %>
@@ -22,12 +26,12 @@
                         <% end %>
                     <% end %>
                 <% end %>
-                    <br><%= post.nation.nation_name %>
-                    <br><%= post.caption %>
-                    <div id="likes_buttons_<%= post.id %>">
-                        <%= render partial: 'likes/like', locals: { post: post, likes: @likes } %>
-                    </div>
-            <% end %>
+                <br><%= post.nation.nation_name %>
+                <br><%= post.caption %>
+                <div id="likes_buttons_<%= post.id %>">
+                    <%= render partial: 'likes/like', locals: { post: post, likes: @likes } %>
+                </div>
+            <% end %> -->
         </div>
     </div>
 </div>

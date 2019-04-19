@@ -8,5 +8,9 @@ class Post < ApplicationRecord
         likes.find_by(user_id: user_id)
     end
 
+    has_many :tags, through: :post_tags
+    has_many :post_tags, dependent: :destroy
+
     has_many_attached :captures
+    validates :captures, presence: true
 end

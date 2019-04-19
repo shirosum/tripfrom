@@ -13,6 +13,7 @@
 //= require rails-ujs
 //= require activestorage
 //= require jquery
+//= require infinite-scroll.pkgd.min.js
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require_tree .
@@ -58,4 +59,15 @@ $(document).on('turbolinks:load', function() {
       })(file);
       reader.readAsDataURL(file);
     });
+
+    // infinite scroll
+    $('#posts').infiniteScroll({
+        path: '.pagination a[rel=next]',
+        append: ".post",
+        history: 'push',
+        prefill: true,
+        status: '.page-load-status'
+    });
+
+
 });

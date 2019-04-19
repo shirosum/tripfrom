@@ -67,6 +67,6 @@ gem 'font-awesome-sass', '~> 5.8.1'
 gem 'jquery-rails'
 gem 'ransack'
 gem 'kaminari', '~> 1.1.1'
-gem 'kaminari-bootstrap', '~>3.0.1'
+# gem 'kaminari-bootstrap', '~>3.0.1'
 
 gem 'pry-rails'
