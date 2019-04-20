@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   get '/admin_top', to: 'roots#admin_top'
   get '/trip', to: 'roots#trip'
 
+  get '/posts/hashtag/:name', to: 'posts#hashtag'
+
   devise_for :users
   resources :users, only: [:index, :show, :edit, :update, :destroy] do
     member do

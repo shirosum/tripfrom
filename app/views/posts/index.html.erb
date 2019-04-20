@@ -2,36 +2,41 @@
     <div class="row">
         <div class="col-xs-3">
             <nav class="nav sidebar-nav affix" role="complementary">
-            <% if user_signed_in? %>
-                <% unless current_user.admin? %>
-                    <%= render 'users/user_info', user: current_user, post: @post %>
+                <% if user_signed_in? %>
+                    <% unless current_user.admin? %>
+                        <%= render 'users/user_info', user: current_user, post: @post %>
+                    <% end %>
                 <% end %>
-            <% end %>
             </nav>
         </div>
         <div class="col-xs-9">
             <h4>posts index</h4>
-                <div id="posts">
-                    <%= render partial: 'posts/post', collection: @posts %>
-                    <%= paginate @posts, class: "pagination" %>
-                </div>
-            <!-- <% @posts.each do |post| %>
-                <%= link_to user_path(post.user) do %>
-                    <%= post.user.user_name %><br>
-                <% end %>
-                <%= link_to post_path(post) do %>
-                    <% if post.captures.attached? %>
-                        <% post.captures.each do |capture| %>
-                            <%= image_tag capture %>
+            <!-- <div id="posts">
+                <%#= render partial: 'posts/post', collection: @posts %>
+                <%#= paginate @posts, class: "pagination" %>
+            </div> -->
+            <div id="posts">
+                <div class="post">
+                    <% @posts.each do |post| %>
+                        <%= link_to user_path(post.user) do %>
+                            <%= post.user.user_name %><br>
                         <% end %>
+                        <%= link_to post_path(post) do %>
+                            <% if post.captures.attached? %>
+                                <% post.captures.each do |capture| %>
+                                    <%= image_tag capture %><br>
+                                <% end %>
+                            <% end %>
+                        <% end %>
+                        <%= post.nation.nation_name %><br>
+                        <%= render_with_hashtag(post.caption) %><br>
+                        <div id="likes_buttons_<%= post.id %>">
+                            <%= render partial: 'likes/like', locals: { post: post, likes: @likes } %>
+                        </div>
                     <% end %>
-                <% end %>
-                <br><%= post.nation.nation_name %>
-                <br><%= post.caption %>
-                <div id="likes_buttons_<%= post.id %>">
-                    <%= render partial: 'likes/like', locals: { post: post, likes: @likes } %>
                 </div>
-            <% end %> -->
+                <%= paginate @posts, class: "pagination" %>
+            </div>
         </div>
     </div>
 </div>

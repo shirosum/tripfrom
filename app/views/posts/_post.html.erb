@@ -1,4 +1,4 @@
-<div class="post">
+<!-- <div class="post">
     <%= link_to user_path(post.user) do %>
         <%= post.user.user_name %><br />
     <% end %>
@@ -10,8 +10,8 @@
         <% end %>
     <% end %>
     <%= post.nation.nation_name %><br />
-    <%= post.caption %><br />
+    <%= render_with_hashtag(post.caption) %><br />
     <div id="likes_button_<%= post.id %>">
         <%= render partial: 'likes/like', locals: { post: post, likes: @likes } %>
     </div>
-</div>
+</div> -->

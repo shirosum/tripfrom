@@ -36,6 +36,12 @@ class PostsController < ApplicationController
         end
     end
 
+    def hashtag
+        tag = Tag.find_by(name: params[:name])
+        @posts = tag.posts.page(params[:page]).per(9).reverse_order
+    end
+
+
     def destroy
         @post = Post.find(params[:id])
         if @post.destroy

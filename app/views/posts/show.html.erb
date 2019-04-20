@@ -9,7 +9,7 @@
                 <% end %>
             </div>
             <div class="caption">
-                <%= @post.caption %>
+                <%= render_with_hashtag(@post.caption) %>
             </div>
             <div class="nation">
                 <%= @post.nation.nation_name %>
