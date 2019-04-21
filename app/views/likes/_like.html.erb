@@ -39,3 +39,24 @@
     <% end %>
 
 <% end %>
+
+<label for="trigger" class="open_button">
+    <%= post.likes_count %>件のいいね
+</label>
+<div class="modal_wrap">
+    <input id="trigger" type="checkbox">
+    <div class="modal_overlay">
+        <label for="trigger" class="modal_trigger"></label>
+        <div class="modal_content">
+            <label for="trigger" class="close_button">✖️</label>
+            <p><strong>いいねしたユーザー</strong></p>
+            <div>
+                <% post.liked_users.each do |user|%>
+                    <%= link_to user_path(user) do %>
+                        <li><%= user.user_name %></li>
+                    <% end %>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>

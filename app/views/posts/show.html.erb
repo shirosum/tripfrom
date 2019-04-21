@@ -17,6 +17,8 @@
             <div class="fav" id="likes_buttons_<%= @post.id %>">
                 <%= render partial: 'likes/like', locals: { post: @post, likes: @likes } %>
             </div>
+
+<!-- userinfo rightside -->
             <% if user_signed_in? %>
                 <% if current_user.id == @post.user_id or current_user.admin? %>
                     <%= link_to '削除', post_path, method: :delete, "data-confirm" => "本当に削除しますか？" %>
@@ -35,6 +37,8 @@
                 <% end %>
             </div>
         </div>
+
+<!-- comment leftside -->
         <div class="comments">
             <h4>コメント一覧</h4>
             <div id="comments-index" class="comments-index">

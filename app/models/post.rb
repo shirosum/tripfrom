@@ -6,7 +6,7 @@ class Post < ApplicationRecord
     # いいね
     has_many :likes, dependent: :destroy
     # いいねしたユーザー
-    has_many :liked_user, through: :likes, source: :user
+    has_many :liked_users, through: :likes, source: :user
     def like_user(user_id)
         likes.find_by(user_id: user_id)
     end
