@@ -17,7 +17,7 @@
             </div> -->
             <div id="posts">
                 <div class="post">
-                    <% @posts.each do |post| %>
+                    <% @result.each do |post| %>
                         <%= link_to user_path(post.user) do %>
                             <%= post.user.user_name %><br>
                         <% end %>
@@ -35,7 +35,7 @@
                         </div>
                     <% end %>
                 </div>
-                <%= paginate @posts, class: "pagination" %>
+                <%= paginate @result, class: "pagination" %>
             </div>
         </div>
     </div>
