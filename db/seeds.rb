@@ -5,7 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'csv'
 
+CSV.foreach('db/nations.csv') do |info|
+Nation.create(nation_name: info[0], nation_code: info[1])
+end
 
 User.create(
     [
@@ -26,29 +30,4 @@ User.create(
             user_name: "sum"
         }
     ]
-
 )
-
-Nation.create([
-    {nation_name:"japan"},
-    {nation_name:"algeria"},
-    {nation_name:"argentina"},
-    {nation_name:"brazil"},
-    {nation_name:"canada"},
-    {nation_name:"croatia"},
-    {nation_name:"europe"},
-    {nation_name:"france"},
-    {nation_name:"germany"},
-    {nation_name:"greece"},
-    {nation_name:"indonesia"},
-    {nation_name:"iran"},
-    {nation_name:"iraq"},
-    {nation_name:"new_regions_france"},
-    {nation_name:"russia"},
-    {nation_name:"serbia"},
-    {nation_name:"tunisia"},
-    {nation_name:"turkey"},
-    {nation_name:"ukraine"},
-    {nation_name:"usa"},
-    {nation_name:"ru"}
-])

@@ -15,6 +15,7 @@
 //= require jquery
 //= require infinite-scroll.pkgd.min.js
 //= require bootstrap-sprockets
+//= require select2
 //= require turbolinks
 //= require_tree .
 
@@ -45,9 +46,8 @@ $(document).on('turbolinks:load', function() {
           var message = 'You clicked "'
           + region
           + '" which has the code: '
-          + code
-          alert(message);
-          window.location.href = `/posts?q%5Bnation_nation_name_cont%5D=${code}`;
+          + code          // alert(message);
+          window.location.href = `/posts?q%5Bnation_nation_name_cont%5D=${region}`;
         }
     });
 
@@ -79,5 +79,9 @@ $(document).on('turbolinks:load', function() {
         status: '.page-load-status'
     });
 
+    $('.searchable').select2({
+      width: 200,
+      allowClear: true
+    });
 
 });
