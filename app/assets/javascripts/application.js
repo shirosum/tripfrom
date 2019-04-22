@@ -47,6 +47,7 @@ $(document).on('turbolinks:load', function() {
           + '" which has the code: '
           + code
           alert(message);
+          window.location.href = `/posts?q%5Bnation_nation_name_cont%5D=${code}`;
         }
     });
 

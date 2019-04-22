@@ -49,5 +49,6 @@ Nation.create([
     {nation_name:"tunisia"},
     {nation_name:"turkey"},
     {nation_name:"ukraine"},
-    {nation_name:"usa"}
+    {nation_name:"usa"},
+    {nation_name:"ru"}
 ])

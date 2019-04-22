@@ -9,7 +9,8 @@
                         <%= content_tag :span, "", class: "fa fa-search" %>
                     <% end %>
                 </dd>
-            <% end %>
+                <% end %>
+                
 		</dl>
 
     <div class="user-info">
@@ -37,17 +38,5 @@
         <div class="">
             <%= link_to '新規投稿', new_post_path %>
         </div>
-        <div class="">
-            <!-- <% user.posts.each do |post| %>
-                <%= link_to post_path(post.id) do %>
-                    <% if post.captures.attached? %>
-                        <% post.captures.each do |capture| %>
-                            <%= image_tag capture %>
-                        <% end %>
-                    <% end %>
-                <% end %>
-            <% end %> -->
-        </div>
-
     </div>
 </div>
