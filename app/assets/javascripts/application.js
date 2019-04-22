@@ -20,24 +20,33 @@
 
 $(document).on('turbolinks:load', function() {
   // jqvmap
+    var dX,dY,dS;
     $('#vmap').vectorMap({
         map: 'world_en',
-        backgroundColor: '#fff',
-        borderColor: 'white',
-        borderOpacity: 0.1,
-        color: '#ffffff',
+        backgroundColor: '#ffffff',
+        borderColor: '#ffffff',
+        borderOpacity: 0.25,
+        borderwidth: 1,
+        color: '#81C7D4',
         hoverOpacity: 0.7,
-        selectedColor: '#800000',
         enableZoom: true,
+        hoverOpacity: null,
+        normalizeFunction: 'polynomial',
+        scaleColors: ['#986DB2', '#7B90D2'],
+        hoverColor: '#1E88A8',
+        selectedColor: '#1E88A8',
+        selectedRegions: null,
         showTooltip: true,
         values: sample_data,
-        scaleColors: ['#C8EEFF', '#006491'],
-        normalizeFunction: 'polynomial',
         onRegionClick: function(element, code, region) {
-          alert();
           console.log(element);
+          console.log(code); //Country code will be passed to the callback as argument
           console.log(region);
-          console.log(code);
+          var message = 'You clicked "'
+          + region
+          + '" which has the code: '
+          + code
+          alert(message);
         }
     });
 

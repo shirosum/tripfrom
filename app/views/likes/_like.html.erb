@@ -1,48 +1,44 @@
 <% if user_signed_in? %>
 
     <% unless post.like_user(current_user.id).blank? %>
-        <%= link_to post_like_path(post_id: post.id, id: post.likes[0].id), method: :delete, remote: true do %>
-            <div class="vertical_like">
-                <i class="fas fa-heart"></i>
-                <span class="red-text">
-                    <%= post.likes_count %>
-                </span>
-            </div>
-        <% end %>
+        <div class="vertical_like">
+            <%= link_to post_like_path(post_id: post.id, id: post.likes[0].id), method: :delete, remote: true do %>
+                    <i class="fas fa-heart"></i>
+            <% end %>
+            <% if post.liked_users.count > 0 %>
+                <label for="trigger" class="open_button">
+                    <%= post.liked_users.count %>件のいいね
+                </label>
+            <% end %>
+        </div>
     <% else %>
-        <%= link_to post_likes_path(post.id), method: :post, remote: true do %>
-            <div class="vertical_like">
+        <div class="vertical_like">
+            <%= link_to post_likes_path(post.id), method: :post, remote: true do %>
                 <i class="far fa-heart"></i>
-                <span class="grey-text text-darken-2">
-                    <%= post.likes_count %>
-                </span>
-            </div>
-        <% end %>
+            <% end %>
+            <% if post.liked_users.count > 0 %>
+                <label for="trigger" class="open_button">
+                    <%= post.liked_users.count %>件のいいね
+                </label>
+            <% end %>
+        </div>
     <% end %>
 
 <% else %>
 
-    <% if post.likes_count > 0 %>
+    <% if post.liked_users.count > 0 %>
         <div class="vertical-icons">
             <i class="far fa-heart"></i>
-            <span class="red-text">
-                <%= post.likes_count %>
-            </span>
         </div>
     <% else %>
         <div class="vertical-icons">
             <i class="far fa-heart"></i>
-            <span class="grey-text text-darken-2">
-                <%= post.likes_count %>
-            </span>
         </div>
     <% end %>
 
 <% end %>
 
-<label for="trigger" class="open_button">
-    <%= post.likes_count %>件のいいね
-</label>
+
 <div class="modal_wrap">
     <input id="trigger" type="checkbox">
     <div class="modal_overlay">

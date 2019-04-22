@@ -18,15 +18,15 @@
             <div id="posts">
                 <div class="post">
                     <% @result.each do |post| %>
-                        <%= link_to user_path(post.user) do %>
-                            <%= post.user.user_name %><br>
-                        <% end %>
                         <%= link_to post_path(post) do %>
                             <% if post.captures.attached? %>
                                 <% post.captures.each do |capture| %>
-                                    <%= image_tag capture %><br>
+                                    <%= image_tag capture.variant(resize:"300x300").processed %><br>
                                 <% end %>
                             <% end %>
+                        <% end %>
+                        <%= link_to user_path(post.user) do %>
+                            <%= post.user.user_name %><br>
                         <% end %>
                         <%= post.nation.nation_name %><br>
                         <%= render_with_hashtag(post.caption) %><br>

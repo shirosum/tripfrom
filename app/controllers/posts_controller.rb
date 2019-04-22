@@ -14,12 +14,13 @@ class PostsController < ApplicationController
     end
 
     def index
-        @posts = Post.page(params[:page]).per(9).reverse_order
+        @like = Like.new
         @q = Post.ransack(params[:q])
-        @result = @q.result.page(params[:page]).per(9).reverse_order
+        @result = @q.result.page(params[:page]).per(12).reverse_order
     end
 
     def show
+        @like = Like.new
         @post = Post.find(params[:id])
         @comment = Comment.new
         @comments = @post.comments
