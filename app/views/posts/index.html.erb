@@ -1,42 +1,66 @@
-<div class="container">
-    <div class="row">
-        <div class="col-xs-3">
-            <nav class="nav sidebar-nav affix" role="complementary">
-                <% if user_signed_in? %>
-                    <% unless current_user.admin? %>
+<body class="bodypost">
+    <div class="container">
+        <div class="row">
+            <div class="clearfix col-xs-3">
+                <div class="nav sidebar-nav affix user-info-box" role="complementary">
+                    <% if user_signed_in? %>
                         <%= render 'users/user_info', user: current_user, post: @post %>
                     <% end %>
-                <% end %>
-            </nav>
-        </div>
-        <div class="col-xs-9">
-            <h4>posts index</h4>
-            <!-- <div id="posts">
-                <%#= render partial: 'posts/post', collection: @posts %>
-                <%#= paginate @posts, class: "pagination" %>
-            </div> -->
-            <div id="posts">
-                <div class="post">
-                    <% @result.each do |post| %>
-                        <%= link_to post_path(post) do %>
-                            <% if post.captures.attached? %>
-                                <% post.captures.each do |capture| %>
-                                    <%= image_tag capture.variant(resize:"300x300").processed %><br>
-                                <% end %>
-                            <% end %>
-                        <% end %>
-                        <%= link_to user_path(post.user) do %>
-                            <%= post.user.user_name %><br>
-                        <% end %>
-                        <%= post.nation.nation_name %><br>
-                        <%= render_with_hashtag(post.caption) %><br>
-                        <div id="likes_buttons_<%= post.id %>">
-                            <%= render partial: 'likes/like', locals: { post: post, likes: @likes } %>
-                        </div>
-                    <% end %>
                 </div>
-                <%= paginate @result, class: "pagination" %>
+            </div>
+            <div class="col-xs-9 clearfix">
+                <ul id="tab-menu" class="clearfix">
+                    <li><a href="#tab1" class="active">posts</a></li>
+                    <li><a href="#tab2" class=""> フォロー中の投稿</a></li>
+                </ul>
+                <div id="tab-contents" class="clearfix">
+                    <div id="tab1" class="tab">
+                        <div id="posts" class="posts">
+                            <% @result.each do |post| %>
+                                <div class="post">
+                                        <div class="post-user-info">
+                                            <%= link_to user_path(post.user) do %>
+                                                <% if post.user.avatar.attached? %>
+                                                    <%= image_tag post.user.avatar.variant(resize: "50x50").processed, class: "user-avatar" %>
+                                                <% else %>
+                                                    <%= image_tag "img/no_image_user.png", :size => "50x50", class: "user-avatar" %>
+                                                <% end %>
+                                            <% end %>
+                                            <%= link_to user_path(post.user) do %>
+                                                <%= post.user.user_name %>
+                                            <% end %>
+                                        </div>
+                                        <div class="post-captures">
+                                            <%= link_to post_path(post) do %>
+                                                <% if post.captures.attached? %>
+                                                    <% post.captures.each do |capture| %>
+                                                        <%= image_tag capture.variant(resize:"300x300").processed, class: "post-capture" %>
+                                                    <% end %>
+                                                <% end %>
+                                            <% end %>
+                                        </div>
+                                        <p>Country : <%= truncate(post.nation.nation_name, :length => 34, :omission => "...") %>
+                                        </p>
+                                        <div>
+                                            <p> タグ : <%= extraction_hashtag(post.caption) %></p>
+                                            <!-- <%＃= render_with_hashtag(post.caption).truncate(120) %> -->
+                                            <%= truncate(post.caption, :length => 120, :omission => "") do %>
+                                                <%= link_to '...', post_path(post) %>
+                                            <% end %>
+                                        </div>
+                                        <div id="likes_buttons_<%= post.id %>" class="likes_button">
+                                            <%= render partial: 'likes/like', locals: { post: post, likes: @likes } %>
+                                        </div>
+                                </div>
+                            <% end %>
+                        </div>
+                        <nav class="pagination"><%= paginate @result %></nav>
+                    </div>
+                    <div id="tab2" class="tab">
+                        <%#= render partial: "posts/indexf", locals: { post: post }  %>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</body>

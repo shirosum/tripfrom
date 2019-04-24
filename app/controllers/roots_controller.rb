@@ -8,6 +8,6 @@ class RootsController < ApplicationController
   def admin_top
   end
 
-  def trip
+  def map
   end
 end

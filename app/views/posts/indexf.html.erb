@@ -1,0 +1,18 @@
+<h2>フォロー中の投稿</h2>
+<% @users.each do |user| %>
+  <% @posts = Post.where(user_id: user.id).reverse_order %>
+    <% @posts.each do |post| %>
+        <div class="contents row" >
+        <div class="">投稿者:<%= link_to user.user_name, user_path(user), method: :get %></div>
+        <div class="">投稿日時:<%= post.created_at.strftime("%Y-%m-%d %H:%M:%S") %></div>
+        <div class=""><%= link_to '詳細', post_path(post), method: :get %></div>
+        <%= link_to post_path(post) do %>
+            <% if post.captures.attached? %>
+                <% post.captures.each do |capture| %>
+                    <%= image_tag capture.variant(resize:"300x300").processed, class: "post-capture" %>
+                <% end %>
+            <% end %>
+        <% end %>
+    <% end %>
+<% end %>
+  <%= paginate(@users) %>

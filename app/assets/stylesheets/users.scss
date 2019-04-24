@@ -2,7 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-
+// ransack
 dl.searchbox{
     margin-top: 20px;
     width: 14%;
@@ -39,4 +39,8 @@ dl.searchbox{
   }
   .search-btn:hover {
     background:#228B22;
+  }
+
+  .user-avatar{
+    border-radius: 50%;
   }

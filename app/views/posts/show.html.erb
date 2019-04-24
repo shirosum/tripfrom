@@ -4,7 +4,7 @@
             <div class="capture">
                 <% if @post.captures.attached? %>
                     <% @post.captures.each do |capture| %>
-                        <%= image_tag capture %>
+                        <%= image_tag capture.variant(resize:"1000x720").processed %>
                     <% end %>
                 <% end %>
             </div>
@@ -41,7 +41,7 @@
 <!-- comment leftside -->
         <div class="comments">
             <h4>コメント一覧</h4>
-            <div id="comments-index" class="comments-index">
+            <div id="comments_area">
                 <%= render partial: 'comments/index', locals: { comments: @comments } %>
             </div>
             <div class="comments-new">

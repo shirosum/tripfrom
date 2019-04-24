@@ -1,10 +1,10 @@
 <div>
     <% comments.each do |comment| %>
-        <% unless comments.nil? %>
+        <% unless comment.id.nil? %>
             <p><%= link_to "#{comment.user.user_name}", user_path(comment.user.id) %></p>
-            <p><%= comment.comment %></p>
+            <p><%= comment.context %></p>
             <% if comment.user == current_user %>
-                <p><%= link_to '削除', post_comment_path(comment.post_id, comment.id), method: :delete, remote: true %></p>
+                <p><%= link_to 'コメントを削除', post_comment_path(comment.post_id, comment.id), method: :delete, remote: true %></p>
             <% end %>
         <% end %>
     <% end %>

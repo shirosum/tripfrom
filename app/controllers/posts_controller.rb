@@ -6,7 +6,7 @@ class PostsController < ApplicationController
     def create
         @post = Post.new(post_params)
         @post.user_id = current_user.id
-        if @post.save!
+        if @post.save
             redirect_to posts_path
         else
             render 'new'
@@ -16,7 +16,11 @@ class PostsController < ApplicationController
     def index
         @like = Like.new
         @q = Post.ransack(params[:q])
-        @result = @q.result.page(params[:page]).per(12).reverse_order
+        @result = @q.result.page(params[:page]).per(16).reverse_order
+    end
+    def indexf
+        @user = current_user
+        @users = @user.followings.page(params[:page]).per(16).reverse_order
     end
 
     def show
@@ -40,10 +44,11 @@ class PostsController < ApplicationController
     end
 
     def hashtag
+        @q = Post.ransack(params[:q])
+        @result = @q.result.page(params[:page]).per(16).reverse_order
         tag = Tag.find_by(name: params[:name])
-        @posts = tag.posts.page(params[:page]).per(9).reverse_order
+        @posts = tag.posts.page(params[:page]).per(16).reverse_order
     end
-
 
     def destroy
         @post = Post.find(params[:id])

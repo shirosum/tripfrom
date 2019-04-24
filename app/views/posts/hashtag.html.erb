@@ -24,7 +24,7 @@
                             <%= link_to post_path(post) do %>
                                 <% if post.captures.attached? %>
                                     <% post.captures.each do |capture| %>
-                                        <%= image_tag capture %><br>
+                                        <%= image_tag capture.variant(resize:"300x300").processed %><br>
                                     <% end %>
                                 <% end %>
                             <% end %>

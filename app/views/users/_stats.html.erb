@@ -2,16 +2,82 @@
     <div class="row">
         <% @user ||= current_user %>
         <div class="stats">
-            <a href="<%= following_user_path(@user) %>">
+            <label for="trigger2">
                 <strong id="following" class="stat">
                     <%= @user.followings.count %>
                 </strong>follow
-            </a>
-            <a href="<%= followers_user_path(@user) %>">
+            </label>
+            <label for="trigger3">
                 <strong id="followers" class="stat">
                     <%= @user.followers.count %>
                 </strong>follower
-            </a>
+            </label>
+        </div>
+    </div>
+</div>
+
+<div class="modal_wrap">
+    <input id="trigger2" type="checkbox">
+    <div class="modal_overlay">
+        <label for="trigger2" class="modal_trigger"></label>
+        <div class="modal_content">
+            <label for="trigger2" class="close_button">✖️</label>
+            <p><strong>フォロー中</strong></p>
+            <div>
+                <% @user.followings.each do |user| %>
+                <table class="table">
+                    <tr>
+                        <td>
+                            <%= link_to user_path(user) do %>
+                                <%= user.user_name %>
+                            <% end %>
+                        </td>
+                        <td>
+                            <%= link_to user_path(user) do %>
+                                <% if user.avatar.attached? %>
+                                    <%= image_tag user.avatar.variant(resize:"100x100").processed, class: "user-avatar"  %>
+                                <% else %>
+                                    <%= image_tag 'img/no_image_user.png', :size => '100x100', class: "user-avatar" %>
+                                <% end %>
+                            <% end %>
+                        </td>
+                    </tr>
+                </table>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal_wrap">
+    <input id="trigger3" type="checkbox">
+    <div class="modal_overlay">
+        <label for="trigger3" class="modal_trigger"></label>
+        <div class="modal_content">
+            <label for="trigger3" class="close_button">✖️</label>
+            <p><strong>フォロワー</strong></p>
+            <div>
+                <% @user.followers.each do |user| %>
+                <table class="table">
+                    <tr>
+                        <td>
+                            <%= link_to user_path(user) do %>
+                                <%= user.user_name %>
+                            <% end %>
+                        </td>
+                        <td>
+                            <%= link_to user_path(user) do %>
+                                <% if user.avatar.attached? %>
+                                    <%= image_tag user.avatar.variant(resize: "100x100").processed, class: "user-avatar" %>
+                                <% else %>
+                                    <%= image_tag 'img/no_image_user.png', :size => '100x100', class: "user-avatar" %>
+                                <% end %>
+                            <% end %>
+                        </td>
+                    </tr>
+                </table>
+                <% end %>
+            </div>
         </div>
     </div>
 </div>

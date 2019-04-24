@@ -72,16 +72,28 @@ $(document).on('turbolinks:load', function() {
 
     // infinite scroll
     $('#posts').infiniteScroll({
-        path: '.pagination a[rel=next]',
+        path: 'nav.pagination a[rel=next]',
         append: ".post",
         history: 'push',
         prefill: true,
         status: '.page-load-status'
     });
 
+    // select2-rails
     $('.searchable').select2({
       width: 200,
       allowClear: true
     });
+
+    // tab
+    $('#tab-contents .tab[id != "tab1"]').hide();
+    $('#tab-menu a').on('click', function() {
+      $("#tab-contents .tab").hide();
+      $("#tab-menu .active").removeClass("active");
+      $(this).addClass("active");
+      $($(this).attr("href")).show();
+      return false;
+    });
+
 
 });
