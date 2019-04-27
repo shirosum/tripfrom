@@ -1,21 +1,23 @@
-<div class="container">
-    <div class="row">
-        <div class="">
-            <h3 class="nheadline">new post</h3>
-            <%= form_with model: @post, local: true do |f| %>
+<body id="bodypostn">
+    <div class="container">
+        <div class="row">
+            <div class="">
+                <h3 class="nheadline">new post</h3>
+                <%= form_with model: @post, local: true do |f| %>
                 <%= f.label :capture %>
                 <%= f.file_field :captures, multiple: true %><br>
                 <div class="preview"></div>
-
+                
                 <%= f.label :caption %>
                 <%= f.text_area :caption %><br>
-
+                
                 <%= f.label :nation %>
                 <%= f.select :nation_id, options_from_collection_for_select(Nation.all, :id, :nation_name, @post.nation_id), {}, class: "searchable" %><br>
-
+                
                 <%= f.submit 'Create new Post', class: "btn" %>
                 <%= link_to '戻る', posts_path, class: "btn" %>
-            <% end %>
+                <% end %>
+            </div>
         </div>
     </div>
-</div>
+</body>

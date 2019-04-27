@@ -1,56 +1,78 @@
-
-<div class="container">
-    <div class="row">
-        <div>
-            <% if current_user.admin? %>
-            <% else %>
-            <h3 class="user-name">
-                <%= link_to edit_user_path(@user) do %>
-                    <%= @user.user_name %>
-                <% end %>
-            </h3>
-            <div class="avatar">
-                <%= form_with model: @user, local: true do |f| %>
-                    <% if @user.avatar.attached? %>
-                        <%= image_tag @user.avatar, :size => "200x200", class: "user-avatar" %>
-                    <% else %>
-                        <%= image_tag 'img/no_image_user.png', :size => "200x200", class: "user-avatar" %>
-                    <% end %>
-                <% end %>
-            </div>
-            <div class="follow">
-                <div class="follow_form"><%= render 'follow_form' %></div>
-                <div class="stats"><%= render 'stats' %></div>
-            </div>
-            <label for="trigger" class="open_button"> いいねした投稿</label>
-            <div class="modal_wrap">
-                <input id="trigger" type="checkbox">
-                <div class="modal_overlay">
-                    <label for="trigger" class="modal_trigger"></label>
-                    <div class="modal_content">
-                        <label for="trigger" class="close_button">✖️</label>
-                        <p><strong>いいねした投稿</strong></p>
-                        <% @user.liked_posts.each do |post|%>
-                            <%= link_to post_path(post) do %>
-                                <li><%= post.user.user_name %></li>
-                            <% end %>
+<body id="bodysuser">
+    <div class="container">
+        <div class="row user-show">
+            <% if user_signed_in? %>
+                <div class="suser-info-box">
+                    <div class="avatar">
+                        <% if @user.avatar.attached? %>
+                            <%= image_tag @user.avatar, :size => "200x200", class: "user-avatar" %>
+                        <% else %>
+                            <%= image_tag 'img/no_image_user.png', :size => "200x200", class: "user-avatar" %>
                         <% end %>
                     </div>
+                    <div class="suser-info">
+                        <div class="user-name">
+                            <%= @user.user_name %>
+                            <% if @user == current_user %>
+                                <%= link_to "プロフィールを編集", edit_user_path(current_user) %>
+                            <% end %>
+                        </div>
+                        <div class="">
+                            <%= @user.posts.count %> 件の投稿
+                        </div>
+                        <div class="follow">
+                            <div class="follow_form"><%= render 'follow_form' %></div>
+                            <div class="stats"><%= render 'stats' %></div>
+                        </div>
+                        <label for="trigger" class="open_button"> いいねした投稿</label>
+                        <div class="modal_wrap">
+                            <input id="trigger" type="checkbox">
+                            <div class="modal_overlay">
+                                <label for="trigger" class="modal_trigger"></label>
+                                <div class="modal_content">
+                                    <label for="trigger" class="close_button">✖️</label>
+                                    <p><strong>いいねした投稿</strong></p>
+                                    <div>
+                                        <% @user.liked_posts.each do |post|%>
+                                            <div class="lpost-box">
+                                                <div class="lpost">
+                                                    <%= link_to user_path(post.user) do %>
+                                                        <% if post.user.avatar.attached? %>
+                                                            <%= image_tag post.user.avatar, :size => "50x50", class: "user-avatar" %>
+                                                        <% else %>
+                                                            <%= image_tag 'img/no_image_user.png', :size => "50x50", class: "user-avatar" %>
+                                                        <% end %>
+                                                        <%= post.user.user_name %>
+                                                    <% end %>
+                                                    の投稿
+                                                </div>
+                                                <div>
+                                                    <%= link_to post_path(post) do %>
+                                                        <% post.captures.each do |capture| %>
+                                                                <%= image_tag capture.variant(combine_options:{resize:"50x50^",crop:"50x50+0+0", gravity: :center}).processed, class: "lposts" %>
+                                                            <% end %>
+                                                        <% end %>
+                                                    にいいねしました
+                                                </div>
+                                            </div>
+                                        <% end %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <h4>captures</h4>
-            <div class="user-posts">
-                <% @posts.each do |post| %>
-                    <%= link_to post_path(post.id) do %>
-                        <% if post.captures.attached? %>
-                            <% post.captures.each do |capture| %>
-                                <%= image_tag capture.variant(resize:"200x200").processed %>
+                <div class="">
+                    <h4>投稿一覧</h4>
+                    <% @posts.each do |post| %>
+                        <% post.captures.each do |capture| %>
+                            <%= link_to post_path(post.id) do %>
+                                <%= image_tag capture.variant(combine_options:{resize:"300x300^",crop:"300x300+0+0",gravity: :center}).processed, class: "users-capture" %>
                             <% end %>
                         <% end %>
                     <% end %>
-                <% end %>
-            </div>
+                </div>
             <% end %>
         </div>
     </div>
-</div>
+</body>

@@ -2,6 +2,7 @@ class LikesController < ApplicationController
   before_action :set_post
 
   def create
+    @post = Post.find(params[:post_id])
     @like = current_user.likes.create(post_id: params[:post_id])
     @post.reload
   end

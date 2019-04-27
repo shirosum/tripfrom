@@ -1,27 +1,24 @@
-<body class="bodypost">
+<body id="bodypost">
     <div class="container">
         <div class="row">
-            <div class="clearfix col-xs-3">
+            <div class="clearfix col-xs-offset-1">
                 <div class="nav sidebar-nav affix user-info-box" role="complementary">
                     <% if user_signed_in? %>
-                        <%= render 'users/user_info', user: current_user, post: @post %>
+                        <%= render 'posts/user_info', user: current_user, post: @post %>
                     <% end %>
                 </div>
             </div>
-            <div class="col-xs-9 clearfix">
-                <ul id="tab-menu" class="clearfix">
-                    <li><a href="#tab1" class="active">posts</a></li>
-                    <li><a href="#tab2" class=""> フォロー中の投稿</a></li>
-                </ul>
-                <div id="tab-contents" class="clearfix">
+            <div class="posts-box col-xs-offset-2">
+                <div id="tab-contents">
                     <div id="tab1" class="tab">
                         <div id="posts" class="posts">
                             <% @result.each do |post| %>
                                 <div class="post">
-                                        <div class="post-user-info">
+                                    <div class="post-user-info">
+                                        <div>
                                             <%= link_to user_path(post.user) do %>
                                                 <% if post.user.avatar.attached? %>
-                                                    <%= image_tag post.user.avatar.variant(resize: "50x50").processed, class: "user-avatar" %>
+                                                    <%= image_tag post.user.avatar.variant(combine_options:{resize:"50x50^",crop:"50x50+0+0",gravity: :center}).processed, class: "user-avatar" %>
                                                 <% else %>
                                                     <%= image_tag "img/no_image_user.png", :size => "50x50", class: "user-avatar" %>
                                                 <% end %>
@@ -30,37 +27,130 @@
                                                 <%= post.user.user_name %>
                                             <% end %>
                                         </div>
-                                        <div class="post-captures">
-                                            <%= link_to post_path(post) do %>
-                                                <% if post.captures.attached? %>
-                                                    <% post.captures.each do |capture| %>
-                                                        <%= image_tag capture.variant(resize:"300x300").processed, class: "post-capture" %>
-                                                    <% end %>
-                                                <% end %>
-                                            <% end %>
+                                        <div class="createddate">
+                                            投稿日時｜<%= post.created_at.strftime('%Y/%m/%d %H:%M:%S') %>
                                         </div>
-                                        <p>Country : <%= truncate(post.nation.nation_name, :length => 34, :omission => "...") %>
-                                        </p>
-                                        <div>
-                                            <p> タグ : <%= extraction_hashtag(post.caption) %></p>
-                                            <!-- <%＃= render_with_hashtag(post.caption).truncate(120) %> -->
-                                            <%= truncate(post.caption, :length => 120, :omission => "") do %>
-                                                <%= link_to '...', post_path(post) %>
+                                    </div>
+                                    <div class="post-capture-box">
+                                        <%= link_to post_path(post) do %>
+                                            <% post.captures.each do |capture| %>
+                                                <%= image_tag capture.variant(combine_options:{resize:"614x614^",crop:"614x614+0+0",gravity: :center}).processed, class: "post-capture" %>
                                             <% end %>
+                                        <% end %>
+                                    </div>
+                                    <div class="post-info">
+                                        <div class="nation-name">
+                                            Country : <%= truncate(post.nation.nation_name, :length => 34, :omission => "...") %>
                                         </div>
                                         <div id="likes_buttons_<%= post.id %>" class="likes_button">
                                             <%= render partial: 'likes/like', locals: { post: post, likes: @likes } %>
                                         </div>
+                                        <div>
+                                            <p> タグ : <%= extraction_hashtag(post.caption) %></p>
+                                            <%= render_with_hashtag(post.caption).truncate(120) %>
+                                            <%= truncate(post.caption, :length => 80, :omission => "") do %>
+                                                <%= link_to '...', post_path(post) %>
+                                            <% end %>
+                                        </div>
+                                    </div>
+                                    <nav class="pagination"><%= paginate @result %></nav>
                                 </div>
                             <% end %>
                         </div>
-                        <nav class="pagination"><%= paginate @result %></nav>
                     </div>
                     <div id="tab2" class="tab">
-                        <%#= render partial: "posts/indexf", locals: { post: post }  %>
+                        <% if user_signed_in? %>
+                            <% @userf.each do |user| %>
+                            <% @posts = Post.where(user_id: user.id).reverse_order %>
+                                <% @posts.each do |post| %>
+                                    <div class="post">
+                                        <div class="post-user-info">
+                                            <%= link_to user_path(post.user) do %>
+                                                <% if post.user.avatar.attached? %>
+                                                    <%= image_tag post.user.avatar.variant(combine_options:{resize:"50x50^",crop:"50x50+0+0",gravity: :center}).processed, class: "user-avatar" %>
+                                                <% else %>
+                                                    <%= image_tag "img/mo_image_user.png", :size => "50x50", class: "user-avatar" %>
+                                                <% end %>
+                                            <% end %>
+                                            <%= link_to user_path(post.user) do %>
+                                                <%= post.user.user_name %>
+                                            <% end %>
+                                            <div class="createddate">
+                                                投稿日時｜<%= post.created_at.strftime("%Y/%m/%d %H:%M:%S") %>
+                                            </div>
+                                        </div>
+                                        <div class="post-capture-box">
+                                            <%= link_to post_path(post) do %>
+                                                <% post.captures.each do |capture| %>
+                                                    <%= image_tag capture.variant(combine_options:{resize:"614x614^",crop:"614x614+0+0",gravity: :center}).processed, class: "post-capture" %>
+                                                <% end %>
+                                            <% end %>
+                                        </div>
+                                        <div class="nation-name">
+                                                Country : <%= truncate(post.nation.nation_name, :length => 34, :omission => "...") %>
+                                        </div>
+                                        <div id="likes_buttons_<%= post.id %>" class="likes_button">
+                                            <%= render partial: 'likes/like', locals: { post: post, likes: @likes } %>
+                                        </div>
+                                        <div>
+                                         <!-- タグ : <%#= extraction_hashtag(post.caption) %>
+                                            <%#= render_with_hashtag(post.caption).truncate(120) %> -->
+                                            <%= truncate(post.caption, :length => 80, :omission => "") do %>
+                                                <%= link_to '...', post_path(post) %>
+                                            <% end %>
+                                        </div>
+                                    </div>
+                                <% end %>
+                            <% end %>
+                            <nav class="pagination"><%= paginate @userf %></nav>
+                        <% end %>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="">
+        <span id="back" class="">
+            <a href="#">
+                <i class="fas fa-chevron-up navbar-nav nav navbar-fixed-bottom fa-lg"></i>
+            </a>
+        </span>
+        </div>
     </div>
 </body>
+
+
+<div class="modal_wrap">
+        <input id="triggery" type="checkbox">
+        <div class="modal_overlay">
+            <label for="triggery" class="modal_trigger"></label>
+            <div class="modal_content">
+                <label for="triggery" class="close_button">✖️</label>
+                <p><strong>いいねしたユーザー</strong></p>
+                <div>
+                    <% @post.liked_users.each do |user|%>
+                        <%= link_to user_path(user) do %>
+                        <li><%= user.user_name %></li>
+                    <% end %>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% if user_signed_in? %>
+    <div class="modal_wrap">
+            <input id="trigger" type="checkbox">
+            <div class="modal_overlay">
+                <label for="trigger" class="modal_trigger"></label>
+                <div class="modal_content">
+                    <label for="trigger" class="close_button">✖️</label>
+                    <p><strong>いいねした投稿</strong></p>
+                    <% @user.liked_posts.each do |post|%>
+                    <%= link_to post_path(post) do %>
+                        <li><%= post.user.user_name %></li>
+                    <% end %>
+                <% end %>
+            </div>
+        </div>
+    </div>
+<% end %>

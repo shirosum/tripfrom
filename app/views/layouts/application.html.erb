@@ -13,7 +13,7 @@
   <body>
     <header class="navbar navbar-fixed-top">
       <div class="container">
-        <nav class="navbar-right col-xs-2">
+        <nav class="col-xs-offset-9">
           <% if user_signed_in? %>
            <% user_name = current_user.user_name %>
           <% else %>
@@ -22,18 +22,30 @@
           ようこそ<strong><%= " #{user_name}" %></strong>さん
         </nav>
       </div>
-      <div class="container">
 
+      <div class="container navs">
         <nav class="nav navbar-nav navbar-left">
           <%= link_to root_path do %>
-            <%= image_tag "img/logo.jpg", size:"50x50", class: "logo" %>
+            <%= image_tag "img/logo.jpg", size:"50x50", id: "logo" %>
           <% end %>
           |
-          <%= link_to root_path do %>
-            <strong> trip from</strong>
-          <% end %>
+          <strong id="tripfrom">
+            <%= link_to root_path do %>trip from<% end %>
+          </strong>
+          |
+          <%= link_to "go everywhere", maps_path , id: "catchphrase" %>
+          <dl class="searchbox">
+              <% provide(:post_caption, 'All posts') %>
+              <%= search_form_for @q do |f| %>
+                  <dt><%= f.text_field :user_user_name_or_caption_or_nation_nation_name_cont ,placeholder: '投稿を検索...' %></dt>
+                  <dd>
+                      <%= button_tag( class: "search-btn") do %>
+                          <%= content_tag :span, "", class: "fa fa-search" %>
+                      <% end %>
+                  </dd>
+              <% end %>
+          </dl>
         </nav>
-
         <nav>
           <ul class="nav navbar-nav navbar-right">
           <% if user_signed_in? %>
@@ -44,70 +56,66 @@
               <li><%= link_to "log_out", destroy_user_session_path, method: :delete %></li>
             <% else %>
               <li>
-                <%=link_to user_path(current_user.id) do %>
-                  <div class="header-item">
-                    <span class="header-icon"><i class="fa fa-user"></i></span>
-                    <p>MyPage</p>
-                  </div>
-                <% end %>
-              </li>
-              <li>
-                <%=link_to posts_path do %>
-                  <div class="header-item">
+                <div class="header-item">
+                  <%=link_to posts_path do %>
                     <span class="header-icon"><i class="far fa-images"></i></span>
-                    <p>Posts</p>
-                  </div>
-                <% end %>
+                    <p> Posts</p>
+                  <% end %>
+                </div>
               </li>
               <li>
-                <%=link_to new_post_path do %>
-                  <div class="header-item">
+                <div class="header-item">
+                  <%=link_to user_path(current_user.id) do %>
+                    <span class="header-icon"><i class="fa fa-user"></i></span>
+                    <p> MyPage</p>
+                  <% end %>
+                </div>
+              </li>
+              <!-- <li>
+                <div class="header-item">
+                  <%=link_to new_post_path do %>
                     <span class="header-icon"><i class="fas fa-camera"></i></span>
-                    <p>NewPost</p>
-                  </div>
-                <% end %>
+                    <p> NewPost</p>
+                  <% end %>
+                </div> -->
               </li>
               <li>
-                <%=link_to user_path(current_user.id) do %>
-                  <div class="header-item">
+                <div class="header-item">
+                  <%=link_to maps_path do %>
                     <span class="header-icon"><i class="fas fa-map-marker-alt"></i></span>
-                    <p>Trip</p>
-                  </div>
-                <% end %>
+                    <p> Trip</p>
+                  <% end %>
+                </div>
               </li>
               <li>
-                <%= link_to destroy_user_session_path, method: :delete do %>
-                  <div class="header-item">
+                <div class="header-item">
+                  <%= link_to destroy_user_session_path, method: :delete do %>
                     <span class="header-icon"><i class="fas fa-sign-out-alt"></i></span>
-                    <p>ログアウト</p>
-                  </div>
-                <% end %>
+                    <p> ログアウト</p>
+                  <% end %>
+                </div>
               </li>
             <% end %>
           <% else %>
             <li>
-              <%=link_to posts_path do %>
-                <div class="header-item">
+              <div class="header-item">
+                <%=link_to posts_path do %>
                   <span class="header-icon"><i class="far fa-images"></i></span>
-                  <p>Posts</p>
-                </div>
-              <% end %>
+                  <p> Posts</p>
+                <% end %>
+              </div>
             </li>
             <li>
-              <%=link_to new_user_registration_path do %>
-                <div class="header-item">
-                  <span class="header-icon"><i class="fas fa-user-plus"></i></span>
-                  <p>SignUp</p>
-                </div>
-              <% end %>
+              <div class="header-item sign_button sign_up_button">
+                <span class="header-icon"><i class="fas fa-user-plus"></i></span>
+                <p> SignUp</p>
+              </div>
             </li>
             <li>
-              <%=link_to new_user_session_path do %>
-                <div class="header-item">
-                  <span class="header-icon"><i class="fas fa-sign-in-alt"></i></span>
-                  <p>LogIn</p>
-                </div>
-              <% end %>
+              <div class="header-item sign_button sign_in_button">
+                <span class="header-icon"><i class="fas fa-sign-in-alt"></i></span>
+                <p> LogIn</p>
+              </div>
             </li>
           <% end %>
           </ul>
@@ -115,19 +123,73 @@
       </div>
     </header>
 
-    
+    <!-- modal signup login -->
+    <div class="sign_modal_wrapper">
+        <div class="sign_modal">
+            <div class="sign_up_modal sign_modal_content">
+              <h2>新規登録</h2>
+              <form class="new_user"action="/users" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="tWQXIbdNUc+zFnHvDa/A7ASlxc5CQn+eaaE/oGQDWU/5y0I77MiFigp6WQX9tjn0GUmHNViBO3rIFNYllj6WYw==">
+                <div class="field">
+                    <label for="user_user_name">User Name</label><br>
+                    <input autofocus="autofocus" autocomplete="user_name" type="user_name" type="user_name" name="user[user_name]" >
+                </div>
+
+                <div class="field">
+                  <label for="user_email">Email</label><br>
+                  <input autofocus="autofocus" autocomplete="email" type="email" value="" name="user[email]">
+                </div>
+
+                <div class="field">
+                  <label for="user_password">Password</label>
+                  <em>(6 characters minimum)</em>
+                  <br>
+                  <input autocomplete="new-password" type="password" name="user[password]" aria-autocomplete="list">
+                </div>
+
+                <div class="field">
+                  <label for="user_password_confirmation">Password confirmation</label><br>
+                  <input autocomplete="new-password" type="password" name="user[password_confirmation]">
+                </div>
+
+                <div class="actions">
+                  <input type="submit" name="commit" value="Sign up" data-disable-with="Sign up">
+                </div>
+              </form>
+            </div>
+            <div class="sign_in_modal sign_modal_content">
+              <h2>ログインフォーム</h2>
+              <form class="new_user" action="/users/sign_in" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="ATN3VBw0hRBi8JwLEs8fCBiic/7VxLGZZGDVI6RSVr55wgNTl50canQaDHgEpozHn9rCEl27Lz0Z4VJMVTJKpw==">
+                <div class="field">
+                  <label for="user_user_name">User Name</label><br>
+                  <input autofocus="autofocus" autocomplete="user_name" type="user_name" type="user_name" name="user[user_name]" >
+                </div>
+
+                <div class="field">
+                  <label for="user_password">Password</label><br>
+                  <input autocomplete="current-password" type="password" name="user[password]">
+                </div>
+
+                <div class="field">
+                  <input name="user[remember_me]" type="hidden" value="0"><input type="checkbox" value="1" name="user[remember_me]">
+                  <label for="user_remember_me">Remember me</label>
+                </div>
+
+                <div class="actions ">
+                  <input type="submit" name="commit" value="Log in" data-disable-with="Log in">
+                </div>
+              </form>
+            </div>
+          </div>
+
+    </div>
 
 
     <%= yield %>
 
+    <footer class="footer">
+      <div class="col-xs-offset-9">CopyRight tripfrom</div>
+    </footer>
 
-      <div class="container">
-        <div class="row">
-          <div class="col-xs-3 col-xs-offset-9">
-            <h5 class="pull-right">tripfrom</h5>
-          </div>
-        </div>
-      </div>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/js/swiper.min.js"></script>
       <script src="https://unpkg.com/infinite-scroll@3/dist/infinite-scroll.pkgd.min.js"></script>
   </body>

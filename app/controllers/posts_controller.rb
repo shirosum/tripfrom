@@ -1,4 +1,7 @@
 class PostsController < ApplicationController
+    before_action :authenticate_user!, only:[:new, :create, :show, :edit, :update, :hashtag]
+    before_action :authenticate_correct_user, only:[:edit, :update]
+
     def new
         @post = Post.new
     end
@@ -7,27 +10,31 @@ class PostsController < ApplicationController
         @post = Post.new(post_params)
         @post.user_id = current_user.id
         if @post.save
+            render :success
+            flash[:notice] = "投稿に成功しました"
             redirect_to posts_path
         else
-            render 'new'
+            render :error
         end
     end
 
     def index
-        @like = Like.new
-        @q = Post.ransack(params[:q])
+        if user_signed_in?
+            @user = current_user
+            @userf = @user.followings.page(params[:page]).per(16).reverse_order
+        end
+        @q = Post.includes(:captures_attachments, :user, :likes, :nation).ransack(params[:q])
         @result = @q.result.page(params[:page]).per(16).reverse_order
-    end
-    def indexf
-        @user = current_user
-        @users = @user.followings.page(params[:page]).per(16).reverse_order
+        @like = Like.new
+        @post = Post.new
     end
 
     def show
-        @like = Like.new
+        @like = Like.new()
         @post = Post.find(params[:id])
         @comment = Comment.new
         @comments = @post.comments
+        @latestposts = @post.user.posts.last(3)
     end
 
     def edit
@@ -44,22 +51,26 @@ class PostsController < ApplicationController
     end
 
     def hashtag
-        @q = Post.ransack(params[:q])
-        @result = @q.result.page(params[:page]).per(16).reverse_order
+        if user_signed_in?
+            @user = current_user
+            @userf = @user.followings.page(params[:page]).per(16).reverse_order
+        end
         tag = Tag.find_by(name: params[:name])
         @posts = tag.posts.page(params[:page]).per(16).reverse_order
+        @like = Like.new
+        @post = Post.new
     end
 
     def destroy
         @post = Post.find(params[:id])
         if @post.destroy
-            redirect_to posts_path
+            redirect_to user_path(current_user.id)
         end
     end
 
     private
     def post_params
-        params.require(:post).permit(:nation_id, :caption, captures: [])
+        params.require(:post).permit(:user_id, :nation_id, :naiton_name, :caption, captures: [])
     end
 
 end

@@ -2,18 +2,160 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.bodypost{
-    margin-top:120px;
+#bodypost{
+    margin-top:130px;
+}
+#bodyposts{
+    margin-top: 130px;
+}
+#bodypostn{
+    margin-top: 130px;
+}
+.post-user-info{
+    max-width: 614px;
+    padding: 5px;
+    margin: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.post-show{
+    display: flex;
+}
+.post-showb{
+    max-width: 620px;
+}
+.post-info{
+    margin: 5px;
+    padding: 5px;
+
+}
+.spost-info{
+    max-width: 615px;
+    border:1px groove rgba($color: #b1b1b1, $alpha: 1.0) ;
+    border-radius: 1%;
+    padding: 20px;
+}
+.spost-user-box{
+    display: flex;
+}
+.spost-user-info{
+    display: flex;
+    flex-direction: column;
+}
+.latestposts-box{
+    display: flex;
+    flex-direction: column;
+    
+}
+.latestposts{
+    margin:15px 0 0 10px;
+    border-radius: 10%;
 }
 .post{
-    width: 320px;
-    display: inline-flex;
-    margin: 10px 20px;
-    flex-direction: column;
-    justify-content: space-around;
+    max-width: 616px;
+    margin: 20px auto;
+    border:1px groove rgba($color: #b1b1b1, $alpha: 1.0) ;
+    border-radius: 1%;
+}
+.scapture{
+    display: flex;
+    align-items:flex-start;
+}
+.comments{
+    margin-left: 10px;
 }
 
-.post-user-info{
-    display: block;
-    padding: 2px;
+#tab-contents{
+    margin-top:40px;
+}
+#tab-menu{
+    display: flex;
+    justify-content: space-around;
+    position:fixed;
+}
+.affix{
+    margin-top: 30px;
+    width: 20%;
+}
+
+
+.postn_modal_wrapper {
+    display: flex;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    top: 0;
+    left: 0;
+    display: none;
+    z-index: 9999;
+  }
+  .postn_modal {
+    align-items: center;
+    position: absolute;
+    background-color: #fff;
+    width: 450px;
+    height: 350px;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: 140px auto 0;
+    border: 1px solid #eee;
+    text-align: right;
+    display: none;
+    border-radius: 1%;
+  }
+.postn_modal_content {
+    display: none;
+    text-align: center;
+}
+
+
+//   searchbox
+  dl.searchbox{
+    margin-top: 20px;
+    position:relative;
+    background-color:#fff;
+    border:1px solid #aaa;
+    border-radius:6px;
+  }
+  dl.searchbox dt{
+    padding:1px;
+  }
+  dl.searchbox dt input{
+    width:80%;
+    height:30px;
+    line-height:30px;
+    background:none;
+    border:none;
+  }
+  dl.searchbox dd{
+    position:absolute;
+    top:1px;
+    right:1px;
+    width:20%;
+  }
+  .search-btn{
+    display:block;
+    background:#5fad35;
+    width:100%;
+    height:30px;
+    line-height:30px;
+    border:none;
+    border-radius: 6px;
+    color:#FFF;
+  }
+  .search-btn:hover {
+    background:#228B22;
+  }
+
+
+//   back
+#back{
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
 }

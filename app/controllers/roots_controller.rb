@@ -1,8 +1,7 @@
 class RootsController < ApplicationController
-  def top
-  end
+  before_action :authenticate_admin, only:[:admin_top]
 
-  def about
+  def top
   end
 
   def admin_top

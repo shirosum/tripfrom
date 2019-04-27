@@ -1,52 +1,108 @@
-<div class="container">
-    <div class="row">
-        <div class="">
-            <div class="capture">
-                <% if @post.captures.attached? %>
-                    <% @post.captures.each do |capture| %>
-                        <%= image_tag capture.variant(resize:"1000x720").processed %>
-                    <% end %>
-                <% end %>
+<body id="bodyposts">
+    <div class="container">
+        <% if user_signed_in? %>
+            <div class="row post-show">
+                <div  class="post-showb">
+                    <div class="scapture">
+                        <% if @post.captures.attached? %>
+                            <% @post.captures.each do |capture| %>
+                                <%= image_tag capture.variant(combine_options:{resize:"614x614^",crop:"614x614+0+0",gravity: :center}).processed %>
+                            <% end %>
+                        <% end %>
+                    </div>
+                    <div class="spost-info">
+                        <div class="nation">
+                            <%= @post.nation.nation_name %>
+                        </div>
+                        <div class="caption">
+                            <%= render_with_hashtag(@post.caption) %>
+                        </div>
+                        <div class="fav" id="likes_buttons_<%= @post.id %>">
+                            <%= render partial: 'likes/like', locals: { post: @post, likes: @likes } %>
+                        </div>
+                    </div>
+                    <div class="createddate">
+                        投稿日時｜<%= @post.created_at.strftime('%Y/%m/%d %H:%M:%S') %>
+                    </div>
+                    <div>
+                        <% if user_signed_in? %>
+                            <% if current_user.id == @post.user_id or current_user.admin? %>
+                                投稿の
+                                <%= link_to '削除', post_path, method: :delete, "data-confirm" => "本当に削除しますか？" %>
+                                ｜
+                                <%= link_to '編集', edit_post_path(@post) %>
+                            <% end %>
+                        <% end %>
+                    </div>
+                    <div class="spost-user-box">
+                        <div class="spost-user-info">
+                            <h4 class="">投稿者：
+                                <%= link_to user_path(@post.user_id) do %>
+                                    <%= @post.user.user_name %>
+                                <% end %>
+                            </h4>
+                            <div>
+                                <%= link_to user_path(@post.user_id) do %>
+                                    <% if @post.user.avatar.attached? %>
+                                        <%= image_tag @post.user.avatar.variant(combine_options:{resize:"150x150^",crop:"150x150+0+0",gravity: :center}).processed, class: "user-avatar" %>
+                                    <% else %>
+                                        <%= image_tag 'img/no_image_user.png', :size => "150x150", class: "user-avatar" %>
+                                    <% end %>
+                                <% end %>
+                            </div>
+                        </div>
+                        <div class="latestposts-box">
+                            <h4>このユーザーの最新の投稿：</h4>
+                            <div>
+                                <% @latestposts.each do |post| %>
+                                    <% post.captures.each do |capture| %>
+                                        <%= link_to post_path(post.id) do %>
+                                            <%= image_tag capture.variant(combine_options:{resize:"100x100^",crop:"100x100+0+0",gravity: :center}).processed, class: "latestposts" %>
+                                        <% end %>
+                                    <% end %>
+                                <% end %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="comments">
+                    <div class="comments-new">
+                        <% if user_signed_in? %>
+                            <%= render partial: 'comments/form', locals: { comment: @comment, post: @post } %>
+                        <% end %>
+                        <h4>コメント一覧</h4>
+                        <div id="comments_area">
+                            <%= render partial: 'comments/index', locals: { comments: @comments } %>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="caption">
-                <%= render_with_hashtag(@post.caption) %>
-            </div>
-            <div class="nation">
-                <%= @post.nation.nation_name %>
-            </div>
-            <div class="fav" id="likes_buttons_<%= @post.id %>">
-                <%= render partial: 'likes/like', locals: { post: @post, likes: @likes } %>
-            </div>
+        <% end %>
+    </div>
+</body>
 
-<!-- userinfo rightside -->
-            <% if user_signed_in? %>
-                <% if current_user.id == @post.user_id or current_user.admin? %>
-                    <%= link_to '削除', post_path, method: :delete, "data-confirm" => "本当に削除しますか？" %>
-                    <%= link_to '編集', edit_post_path(@post) %>
-                <% end %>
-            <% end %>
-            <div class="user-info">
-                <h4>投稿者</h4>
-                <%= link_to user_path(@post.user_id) do %>
-                    <%= @post.user.user_name %>
-                    <% if @post.user.avatar.attached? %>
-                        <%= image_tag @post.user.avatar %>
-                    <% else %>
-                        <%= image_tag 'img/no_image_user.png', :size => "200x200" %>
-                    <% end %>
-                <% end %>
-            </div>
-        </div>
 
-<!-- comment leftside -->
-        <div class="comments">
-            <h4>コメント一覧</h4>
-            <div id="comments_area">
-                <%= render partial: 'comments/index', locals: { comments: @comments } %>
-            </div>
-            <div class="comments-new">
-                <% if user_signed_in? %>
-                    <%= render partial: 'comments/form', locals: { comment: @comment, post: @post } %>
+<div class="modal_wrap">
+        <input id="triggery" type="checkbox">
+        <div class="modal_overlay">
+            <label for="triggery" class="modal_trigger"></label>
+            <div class="modal_content">
+                <label for="triggery" class="close_button">✖️</label>
+                <p><strong>いいねしたユーザー</strong></p>
+                <div class="fusers">
+                    <% @post.liked_users.each do |user|%>
+                        <div class="fuser">
+                            <%= link_to user_path(user) do %>
+                                <% if user.avatar.attached? %>
+                                    <%= image_tag user.avatar, :size => "50x50", class: "user-avatar" %>
+                                <% else %>
+                                    <%= image_tag 'img/no_image_user.png', :size => "50x50", class: "user-avatar" %>
+                                <% end %>
+                            <% end %>
+                            <%= link_to user_path(user) do %>
+                                <%= user.user_name %>
+                            <% end %>
+                        </div>
                 <% end %>
             </div>
         </div>

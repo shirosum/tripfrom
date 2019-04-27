@@ -1,0 +1,14 @@
+$('input[type="text"]').val('');
+$('.postn_modal_wrapper, .postn_modal, .postn_modal_content').hide();
+$(function() {
+        $.ajax({
+          url: '/posts',
+          dataType: 'html',
+          success: function(data) {
+            $('#bodypost').html(data);
+          },
+          error: function(data) {
+            alert('error');
+          }
+         });
+  });

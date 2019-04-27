@@ -1,11 +1,15 @@
 <div>
     <% comments.each do |comment| %>
         <% unless comment.id.nil? %>
-            <p><%= link_to "#{comment.user.user_name}", user_path(comment.user.id) %></p>
-            <p><%= comment.context %></p>
-            <% if comment.user == current_user %>
-                <p><%= link_to 'コメントを削除', post_comment_path(comment.post_id, comment.id), method: :delete, remote: true %></p>
-            <% end %>
+            <div>
+                <%= link_to "#{comment.user.user_name}", user_path(comment.user.id) %>
+            </div>
+            <div>
+                <%= comment.context %>
+                <% if comment.user == current_user %>
+                    <%= link_to ' 削除', post_comment_path(comment.post_id, comment.id), method: :delete, remote: true %>
+                <% end %>
+            </div>
         <% end %>
     <% end %>
 </div>

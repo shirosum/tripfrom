@@ -21,7 +21,6 @@
 
 $(document).on('turbolinks:load', function() {
   // jqvmap
-    var dX,dY,dS;
     $('#vmap').vectorMap({
         map: 'world_en',
         backgroundColor: '#ffffff',
@@ -51,7 +50,7 @@ $(document).on('turbolinks:load', function() {
         }
     });
 
-    // preview
+    // preview表示
     $('form').on('change', 'input[type="file"]', function(e){
       var file = e.target.files[0],
           reader = new FileReader(),
@@ -79,13 +78,13 @@ $(document).on('turbolinks:load', function() {
         status: '.page-load-status'
     });
 
-    // select2-rails
+// select2-rails
     $('.searchable').select2({
       width: 200,
       allowClear: true
     });
 
-    // tab
+// posts index tabmenu
     $('#tab-contents .tab[id != "tab1"]').hide();
     $('#tab-menu a').on('click', function() {
       $("#tab-contents .tab").hide();
@@ -95,5 +94,49 @@ $(document).on('turbolinks:load', function() {
       return false;
     });
 
+
+//  モーダルサインアップログイン
+      $(document).on('click', '.sign_button', function() {
+        $('.sign_modal_wrapper').show();
+        $('.sign_modal').show();
+        if ($(this).hasClass('sign_up_button')) {
+          $('.sign_up_modal').show();
+        } else {
+          $('.sign_in_modal').show();
+        }
+      });
+      $(document).on('click', '.sign_modal_wrapper', function() {
+        $('.sign_modal_wrapper').hide();
+        $('.sign_modal').hide();
+        $('.sign_modal_content').hide();
+      });
+      $('.sign_modal_content, .sign_modal').on('click', function(e){
+        e.stopPropagation();
+      });
+
+// modal new post
+      $(document).on('click', '.postn_button', function() {
+        $('.postn_modal_wrapper').show();
+        $('.postn_modal').show();
+        $('.postn_modal_content').show();
+      });
+      $(document).on('click', '.postn_modal_wrapper', function() {
+        $('.postn_modal_wrapper').hide();
+        $('.postn_modal').hide();
+        $('.postn_modal_content').hide();
+      });
+      $('.postn_modal, .postn_modal_content').on('click', function(e){
+        e.stopPropagation();
+      });
+
+// back
+      $(function() {
+        $('#back a').on('click',function(){
+          $('body, html').animate({
+            scrollTop:0
+          }, 800);
+            return false;
+        });
+      });
 
 });

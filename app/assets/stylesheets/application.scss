@@ -32,6 +32,14 @@
     clear: both;
 }
 
+a{
+    text-decoration: none;
+    color: black;
+}
+a:hover{
+    text-decoration: none;
+}
+
 #vmap{
     margin: 0 auto;
     width: 100%;
@@ -39,13 +47,35 @@
 }
 header{
 	color:rgb(0, 0, 0);
-	background-color: rgb(255, 255, 255);
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 9px 3px -3px rgba(0,0,0,0.6);
+                -webkit-box-shadow: 0px 9px 3px -3px rgba(0,0,0,0.6);
+                -moz-box-shadow: 0px 9px 3px -3px rgba(0,0,0,0.6);
+}
+.navs{
+    display: flex;
+    justify-content: space-between;
+}
+.navbar-left{
+    display: flex;
+    margin-bottom: 20px;
+    align-items: center;
 }
 ul{
     list-style: none;
 }
-.logo{
+#tripfrom{
+    margin: 0 5px;
+}
+#logo{
     border-radius: 20%;
+    margin-right: 5px;
+}
+#catchphrase{
+    margin: 0 20px 0 5px;
+}
+.navbar-right{
+    margin-top: 16px;
 }
 .navbar-right a {
 	text-decoration: none;
@@ -56,10 +86,21 @@ ul{
 	line-height: 100%;
 }
 .header-item {
-	text-align: center;
+    text-align: center;
+    margin: 0 20px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+}
+.header-item:hover{
+    -webkit-transform: translateY(-5px);
+    -ms-transform: translateY(-5px);
+    transform: translateY(-5px);
 }
 .header-icon{
-	font-size:25px;
+    font-size:20px;
 }
 #body{
     margin-top:120px;
@@ -74,9 +115,45 @@ ul{
     display: none;
 }
 
+// modal signup/in
+.sign_button{
+    text-align: center;
+}
+.sign_modal_wrapper {
+    display: flex;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    top: 0;
+    left: 0;
+    display: none;
+    z-index: 9999;
+}
+.sign_modal {
+    position: absolute;
+    background-color: #fff;
+    width: 450px;
+    height: 350px;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: 140px auto 0;
+    border: 1px solid #eee;
+    text-align: right;
+    display: none;
+    border-radius: 1%;
+}
 
-
-//  モーダル
+.sign_modal_content {
+    display: none;
+    text-align: center;
+}
+.field{
+    margin: 10px;
+}
+//  like follow follower
 .modal_wrap input{
     display: none;
 }
@@ -103,10 +180,9 @@ ul{
 }
 
 .modal_content{
-    display: block;
     align-self: center;
-    width: 60%;
-    max-width: 800px;
+    width: 40%;
+    max-width: 500px;
     padding: 30px 30px 15px;
     box-sizing: border-box;
     background: #fff;
@@ -132,3 +208,41 @@ ul{
 .modal_wrap input:checked ~ .modal_overlay .modal_content{
     transform: scale(1);
 }
+
+// searchbar
+dl.searchbox{
+    margin-top: 20px;
+    position:relative;
+    background-color:#fff;
+    border:1px solid #aaa;
+    border-radius:6px;
+  }
+  dl.searchbox dt{
+    padding:1px;
+  }
+  dl.searchbox dt input{
+    width:80%;
+    height:30px;
+    line-height:30px;
+    background:none;
+    border:none;
+  }
+  dl.searchbox dd{
+    position:absolute;
+    top:1px;
+    right:1px;
+    width:20%;
+  }
+  .search-btn{
+    display:block;
+    background:#c0c0c0;
+    width:100%;
+    height:30px;
+    line-height:30px;
+    border:none;
+    border-radius: 6px;
+    color:#FFF;
+  }
+  .search-btn:hover {
+    background:rgb(158, 158, 158);
+  }

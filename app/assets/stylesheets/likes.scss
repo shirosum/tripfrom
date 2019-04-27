@@ -1,3 +1,40 @@
 // Place all the styles related to the Likes controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.fa-heart{
+  color:red;
+}
+
+.liked_modal_wrapper {
+    display: flex;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    top: 0;
+    left: 0;
+    display: none;
+    z-index: 9999;
+  }
+  .liked_modal {
+    position: absolute;
+    background-color: #fff;
+    width: 450px;
+    height: 350px;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: 140px auto 0;
+    border: 1px solid #eee;
+    text-align: right;
+    display: none;
+    border-radius: 1%;
+  }
+
+  .liked_modal_content {
+    display: none;
+    text-align: center;
+  }

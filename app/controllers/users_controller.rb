@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!,only: [:index,:show]
-  before_action :authenticate_admin,only: [:index]
+  before_action :authenticate_user!
+  before_action :authenticate_admin, only:[:index]
+  before_action :authenticate_correct_user, only:[:edit, :update]
+
 
   def index
     @users = User.all
@@ -8,7 +10,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @posts = @user.posts
+    @posts = @user.posts.includes(:captures_attachments).reverse_order
   end
 
   def edit

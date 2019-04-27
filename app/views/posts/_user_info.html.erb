@@ -1,0 +1,79 @@
+<div>
+    <div id="user-info">
+        <div class="user-info clearfix">
+            <div class="">
+            <%= link_to user_path(user) do %>
+                <% if user.avatar.attached? %>
+                    <%= image_tag user.avatar.variant(combine_options:{resize:"120x120^",crop:"120x120+0+0",gravity: :center}).processed, class: "user-avatar" %>
+                <% else %>
+                    <%= image_tag "img/no_image_user.png", :size => "120x120", class: "user-avatar" %>
+                <% end %>
+            <% end %>
+            </div>
+            <div class="">
+                <%= link_to user_path(user) do %>
+                    <%= user.user_name %>
+                <% end %>
+            </div>
+            <div class="">
+                <%= render 'users/stats' %>
+            </div>
+            <div class="liked_button">
+                <label for="trigger">いいねした投稿</label>
+            </div>
+            <div>
+                <label class="postn_button">新規投稿</label>
+            </div>
+            <div id="tab-menu" class="clearfix">
+                <div class="">
+                    <div class="tab-headline">
+                        <a href="#tab1" class="active">
+                            <i class="far fa-images"></i>
+                            <span>Posts</span>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <div class="tab-headline">
+                        <a href="#tab2" class="">
+                            <i class="far fa-clock"></i>
+                            <span>Timeline</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- liked posts -->
+
+
+
+<!-- new- post-modal -->
+<div class="postn_modal_wrapper">
+    <div class="postn_modal">
+        <div class="postn_modal_content">
+            <h2>new Post</h2>
+            <%= form_with model: @post do |f| %>
+            <div class="error-message"></div>
+                 <div class="field">
+                    <%= f.label :capture %>
+                    <%= f.file_field :captures, multiple: true, class: "form-control" %>
+                    <!-- <div class="preview"></div> -->
+                 </div>
+                 <div class="field">
+                    <%= f.label :caption %>
+                    <%= f.text_area :caption, class: "form-control", placeholder: "コメントを入力" %>
+                 </div>
+                 <div class="field">
+                    <%= f.label :nation %>
+                    <%= f.select :nation_id, options_from_collection_for_select(Nation.all, :id, :nation_name, @post.nation_id), {}, class: "searchable" %>
+                 </div>
+                 <div>
+                    <%= f.submit "create", class: "btn" %>
+                 </div>
+            <% end %>
+        </div>
+    </div>
+</div>
