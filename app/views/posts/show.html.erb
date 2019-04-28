@@ -52,10 +52,10 @@
                             </div>
                         </div>
                         <div class="latestposts-box">
-                            <h4>このユーザーの最新の投稿：</h4>
+                            <h4>最近の <%= @post.user.user_name %> の投稿：</h4>
                             <div>
                                 <% @latestposts.each do |post| %>
-                                    <% post.captures.each do |capture| %>
+                                    <% post.captures.find_each do |capture| %>
                                         <%= link_to post_path(post.id) do %>
                                             <%= image_tag capture.variant(combine_options:{resize:"100x100^",crop:"100x100+0+0",gravity: :center}).processed, class: "latestposts" %>
                                         <% end %>
@@ -90,7 +90,7 @@
                 <label for="triggery" class="close_button">✖️</label>
                 <p><strong>いいねしたユーザー</strong></p>
                 <div class="fusers">
-                    <% @post.liked_users.each do |user|%>
+                    <% @post.liked_users.find_each do |user|%>
                         <div class="fuser">
                             <%= link_to user_path(user) do %>
                                 <% if user.avatar.attached? %>

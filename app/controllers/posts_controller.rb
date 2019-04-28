@@ -11,8 +11,6 @@ class PostsController < ApplicationController
         @post.user_id = current_user.id
         if @post.save
             render :success
-            flash[:notice] = "投稿に成功しました"
-            redirect_to posts_path
         else
             render :error
         end
@@ -21,10 +19,10 @@ class PostsController < ApplicationController
     def index
         if user_signed_in?
             @user = current_user
-            @userf = @user.followings.page(params[:page]).per(16).reverse_order
+            @userf = @user.followings.with_attached_avatar.page(params[:page]).per(16).reverse_order
         end
-        @q = Post.includes(:captures_attachments, :user, :likes, :nation).ransack(params[:q])
-        @result = @q.result.page(params[:page]).per(16).reverse_order
+        @q = Post.with_attached_captures.includes(:captures_attachments, :user, :nation, :likes).ransack(params[:q])
+        @result = @q.result.page(params[:page]).per(16).reverse_order()
         @like = Like.new
         @post = Post.new
     end

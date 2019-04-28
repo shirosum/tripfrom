@@ -24,7 +24,7 @@
             <label for="trigger2" class="close_button">✖️</label>
             <p><strong>フォロー中</strong></p>
             <div class="fuser">
-                <% @user.followings.each do |user| %>
+                <% @user.followings.find_each do |user| %>
                     <%= link_to user_path(user) do %>
                         <% if user.avatar.attached? %>
                             <%= image_tag user.avatar.variant(combine_options:{resize:"50x50^",crop:"50x50+0+0", gravity: :center}).processed, class: "user-avatar"  %>

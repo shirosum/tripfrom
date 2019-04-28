@@ -12,7 +12,7 @@
                 <div id="tab-contents">
                     <div id="tab1" class="tab">
                         <div id="posts" class="posts">
-                            <% @posts.each do |post| %>
+                            <% @posts.find_each do |post| %>
                                 <div class="post">
                                     <div class="post-user-info">
                                         <div>
@@ -33,7 +33,7 @@
                                     </div>
                                     <div class="post-capture-box">
                                         <%= link_to post_path(post) do %>
-                                            <% post.captures.each do |capture| %>
+                                            <% post.captures.find_each do |capture| %>
                                                 <%= image_tag capture.variant(combine_options:{resize:"614x614^",crop:"614x614+0+0",gravity: :center}).processed, class: "post-capture" %>
                                             <% end %>
                                         <% end %>
@@ -46,10 +46,17 @@
                                             <%= render partial: 'likes/like', locals: { post: post, likes: @likes } %>
                                         </div>
                                         <div>
-                                            <p> タグ : <%= extraction_hashtag(post.caption) %></p>
-                                            <%= render_with_hashtag(post.caption).truncate(120) %>
-                                            <%= truncate(post.caption, :length => 80, :omission => "") do %>
-                                                <%= link_to '...', post_path(post) %>
+                                            <% if post.caption.length > 80 %>
+                                                <div class="grad-wrap">
+                                                    <input id="trigger_<%= post.id %>" class="grad-trigger" type="checkbox">
+                                                    <label class="grad-btn" for="trigger_<%= post.id %>">全文を表示
+                                                    </label>
+                                                    <div class="grad-item">
+                                                        <%= render_with_hashtag(post.caption) %>
+                                                    </div>
+                                                </div>
+                                            <% else %>
+                                                <%= render_with_hashtag(post.caption) %>
                                             <% end %>
                                         </div>
                                     </div>
@@ -60,9 +67,9 @@
                     </div>
                     <div id="tab2" class="tab">
                         <% if user_signed_in? %>
-                            <% @userf.each do |user| %>
+                            <% @userf.find_each do |user| %>
                             <% @posts = Post.where(user_id: user.id).reverse_order %>
-                                <% @posts.each do |post| %>
+                                <% @posts.find_each do |post| %>
                                     <div class="post">
                                         <div class="post-user-info">
                                             <%= link_to user_path(post.user) do %>
@@ -81,22 +88,29 @@
                                         </div>
                                         <div class="post-capture-box">
                                             <%= link_to post_path(post) do %>
-                                                <% post.captures.each do |capture| %>
+                                                <% post.captures.find_each do |capture| %>
                                                     <%= image_tag capture.variant(combine_options:{resize:"614x614^",crop:"614x614+0+0",gravity: :center}).processed, class: "post-capture" %>
                                                 <% end %>
                                             <% end %>
                                         </div>
                                         <div class="nation-name">
-                                                Country : <%= truncate(post.nation.nation_name, :length => 34, :omission => "...") %>
+                                                Country : <%= truncate(post.nation.nation_name, :length => 40, :omission => "...") %>
                                         </div>
                                         <div id="likes_buttons_<%= post.id %>" class="likes_button">
                                             <%= render partial: 'likes/like', locals: { post: post, likes: @likes } %>
                                         </div>
                                         <div>
-                                         <!-- タグ : <%#= extraction_hashtag(post.caption) %>
-                                            <%#= render_with_hashtag(post.caption).truncate(120) %> -->
-                                            <%= truncate(post.caption, :length => 80, :omission => "") do %>
-                                                <%= link_to '...', post_path(post) %>
+                                            <% if post.caption.length > 80 %>
+                                                <div class="grad-wrap">
+                                                    <input id="trigger_<%= post.id %>" class="grad-trigger" type="checkbox">
+                                                    <label class="grad-btn" for="trigger_<%= post.id %>">全文を表示
+                                                    </label>
+                                                    <div class="grad-item">
+                                                        <%= render_with_hashtag(post.caption) %>
+                                                    </div>
+                                                </div>
+                                            <% else %>
+                                                <%= render_with_hashtag(post.caption) %>
                                             <% end %>
                                         </div>
                                     </div>
@@ -117,3 +131,8 @@
         </div>
     </div>
 </body>
+
+
+
+
+  

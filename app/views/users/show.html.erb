@@ -25,41 +25,6 @@
                             <div class="stats"><%= render 'stats' %></div>
                         </div>
                         <label for="trigger" class="open_button"> いいねした投稿</label>
-                        <div class="modal_wrap">
-                            <input id="trigger" type="checkbox">
-                            <div class="modal_overlay">
-                                <label for="trigger" class="modal_trigger"></label>
-                                <div class="modal_content">
-                                    <label for="trigger" class="close_button">✖️</label>
-                                    <p><strong>いいねした投稿</strong></p>
-                                    <div>
-                                        <% @user.liked_posts.each do |post|%>
-                                            <div class="lpost-box">
-                                                <div class="lpost">
-                                                    <%= link_to user_path(post.user) do %>
-                                                        <% if post.user.avatar.attached? %>
-                                                            <%= image_tag post.user.avatar, :size => "50x50", class: "user-avatar" %>
-                                                        <% else %>
-                                                            <%= image_tag 'img/no_image_user.png', :size => "50x50", class: "user-avatar" %>
-                                                        <% end %>
-                                                        <%= post.user.user_name %>
-                                                    <% end %>
-                                                    の投稿
-                                                </div>
-                                                <div>
-                                                    <%= link_to post_path(post) do %>
-                                                        <% post.captures.each do |capture| %>
-                                                                <%= image_tag capture.variant(combine_options:{resize:"50x50^",crop:"50x50+0+0", gravity: :center}).processed, class: "lposts" %>
-                                                            <% end %>
-                                                        <% end %>
-                                                    にいいねしました
-                                                </div>
-                                            </div>
-                                        <% end %>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="">
@@ -76,3 +41,39 @@
         </div>
     </div>
 </body>
+
+<div class="modal_wrap">
+        <input id="trigger" type="checkbox">
+        <div class="modal_overlay">
+            <label for="trigger" class="modal_trigger"></label>
+            <div class="modal_content">
+                <label for="trigger" class="close_button">✖️</label>
+                <p><strong>いいねした投稿</strong></p>
+                <div>
+                    <% @user.liked_posts.includes(:user).find_each do |post|%>
+                        <div class="lpost-box">
+                            <div class="lpost">
+                                <%= link_to user_path(post.user) do %>
+                                    <% if post.user.avatar.attached? %>
+                                        <%= image_tag post.user.avatar, :size => "50x50", class: "user-avatar" %>
+                                    <% else %>
+                                        <%= image_tag 'img/no_image_user.png', :size => "50x50", class: "user-avatar" %>
+                                    <% end %>
+                                    <%= post.user.user_name %>
+                                <% end %>
+                                の投稿
+                            </div>
+                            <div>
+                                <%= link_to post_path(post) do %>
+                                    <% post.captures.find_each do |capture| %>
+                                            <%= image_tag capture.variant(combine_options:{resize:"50x50^",crop:"50x50+0+0", gravity: :center}).processed, class: "lposts" %>
+                                        <% end %>
+                                    <% end %>
+                                にいいねしました
+                            </div>
+                        </div>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -21,6 +21,7 @@ class ApplicationController < ActionController::Base
     end
 
     def authenticate_correct_user
+        user = User.find(params[:id])
         if current_user.id != user.id
             redirect_to posts_path
         end

@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  root 'roots#top'
-  get '/about', to: 'roots#about'
+  root 'posts#index'
   get '/admin_top', to: 'roots#admin_top'
   get '/maps', to: 'roots#map'
 

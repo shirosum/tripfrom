@@ -70,6 +70,7 @@ gem 'ransack', github: 'activerecord-hackery/ransack'
 gem 'kaminari', '~> 1.1.1'
 # gem 'kaminari-bootstrap', '~>3.0.1'
 gem 'select2-rails'
+gem 'bxslider-rails'
 gem 'data-confirm-modal'
 gem 'aws-sdk-s3', require: false
 

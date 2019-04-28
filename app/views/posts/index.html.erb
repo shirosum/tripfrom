@@ -31,7 +31,7 @@
                                             投稿日時｜<%= post.created_at.strftime('%Y/%m/%d %H:%M:%S') %>
                                         </div>
                                     </div>
-                                    <div class="post-capture-box">
+                                    <div class="post_capture_<%= post.id %>">
                                         <%= link_to post_path(post) do %>
                                             <% post.captures.each do |capture| %>
                                                 <%= image_tag capture.variant(combine_options:{resize:"614x614^",crop:"614x614+0+0",gravity: :center}).processed, class: "post-capture" %>
@@ -46,10 +46,17 @@
                                             <%= render partial: 'likes/like', locals: { post: post, likes: @likes } %>
                                         </div>
                                         <div>
-                                            <p> タグ : <%= extraction_hashtag(post.caption) %></p>
-                                            <%= render_with_hashtag(post.caption).truncate(120) %>
-                                            <%= truncate(post.caption, :length => 80, :omission => "") do %>
-                                                <%= link_to '...', post_path(post) %>
+                                            <% if post.caption.length > 80 %>
+                                                <div class="grad-wrap">
+                                                    <input id="trigger_<%= post.id %>" class="grad-trigger" type="checkbox">
+                                                    <label class="grad-btn" for="trigger_<%= post.id %>">全文を表示
+                                                    </label>
+                                                    <div class="grad-item">
+                                                        <%= render_with_hashtag(post.caption) %>
+                                                    </div>
+                                                </div>
+                                            <% else %>
+                                                <%= render_with_hashtag(post.caption) %>
                                             <% end %>
                                         </div>
                                     </div>
@@ -60,7 +67,7 @@
                     </div>
                     <div id="tab2" class="tab">
                         <% if user_signed_in? %>
-                            <% @userf.each do |user| %>
+                            <% @userf.find_each do |user| %>
                             <% @posts = Post.where(user_id: user.id).reverse_order %>
                                 <% @posts.each do |post| %>
                                     <div class="post">
@@ -79,7 +86,7 @@
                                                 投稿日時｜<%= post.created_at.strftime("%Y/%m/%d %H:%M:%S") %>
                                             </div>
                                         </div>
-                                        <div class="post-capture-box">
+                                        <div class="post_capture_<%= post.id %>">
                                             <%= link_to post_path(post) do %>
                                                 <% post.captures.each do |capture| %>
                                                     <%= image_tag capture.variant(combine_options:{resize:"614x614^",crop:"614x614+0+0",gravity: :center}).processed, class: "post-capture" %>
@@ -93,10 +100,17 @@
                                             <%= render partial: 'likes/like', locals: { post: post, likes: @likes } %>
                                         </div>
                                         <div>
-                                         <!-- タグ : <%#= extraction_hashtag(post.caption) %>
-                                            <%#= render_with_hashtag(post.caption).truncate(120) %> -->
-                                            <%= truncate(post.caption, :length => 80, :omission => "") do %>
-                                                <%= link_to '...', post_path(post) %>
+                                            <% if post.caption.length > 80 %>
+                                                <div class="grad-wrap">
+                                                    <input id="trigger_<%= post.id %>" class="grad-trigger" type="checkbox">
+                                                    <label class="grad-btn" for="trigger_<%= post.id %>">全文を表示
+                                                    </label>
+                                                    <div class="grad-item">
+                                                        <%= render_with_hashtag(post.caption) %>
+                                                    </div>
+                                                </div>
+                                            <% else %>
+                                                <%= render_with_hashtag(post.caption) %>
                                             <% end %>
                                         </div>
                                     </div>
@@ -127,7 +141,7 @@
                 <label for="triggery" class="close_button">✖️</label>
                 <p><strong>いいねしたユーザー</strong></p>
                 <div>
-                    <% @post.liked_users.each do |user|%>
+                    <% @post.liked_users.find_each do |user|%>
                         <%= link_to user_path(user) do %>
                         <li><%= user.user_name %></li>
                     <% end %>
@@ -139,18 +153,66 @@
 
 <% if user_signed_in? %>
     <div class="modal_wrap">
-            <input id="trigger" type="checkbox">
-            <div class="modal_overlay">
-                <label for="trigger" class="modal_trigger"></label>
-                <div class="modal_content">
-                    <label for="trigger" class="close_button">✖️</label>
-                    <p><strong>いいねした投稿</strong></p>
-                    <% @user.liked_posts.each do |post|%>
-                    <%= link_to post_path(post) do %>
-                        <li><%= post.user.user_name %></li>
+        <input id="trigger" type="checkbox">
+        <div class="modal_overlay">
+            <label for="trigger" class="modal_trigger"></label>
+            <div class="modal_content">
+                <label for="trigger" class="close_button">✖️</label>
+                <p><strong>いいねした投稿</strong></p>
+                <div>
+                    <% @user.liked_posts.includes(:user).find_each do |post| %>
+                        <div class="lpost-box">
+                            <div class="lpost">
+                                <%= link_to user_path(post.user) do %>
+                                    <% if post.user.avatar.attached? %>
+                                        <%= image_tag post.user.avatar, :size => "50x50", class: "user-avatar" %>
+                                    <% else %>
+                                        <%= image_tag 'img/no_image_user.png', :size => "50x50", class: "user-avatar" %>
+                                    <% end %>
+                                    <%= post.user.user_name %>
+                                <% end %>の投稿
+                            </div>
+                            <div>
+                                <%= link_to post_path(post) do %>
+                                    <% post.captures.find_each do |capture| %>
+                                            <%= image_tag capture.variant(combine_options:{resize:"50x50^",crop:"50x50+0+0", gravity: :center}).processed, class: "lposts" %>
+                                        <% end %>
+                                    <% end %>
+                                にいいねしました
+                            </div>
+                        </div>
                     <% end %>
-                <% end %>
+                </div>
             </div>
         </div>
     </div>
 <% end %>
+
+
+     <!-- new- post-modal -->
+     <div class="postn_modal_wrapper">
+            <div class="postn_modal">
+                <div class="postn_modal_content">
+                    <h2>new Post</h2>
+                    <%= form_with model: @post do |f| %>
+                    <div class="error-message"></div>
+                        <div class="field">
+                            <%= f.label :capture %>
+                            <%= f.file_field :captures %>
+                            <!-- <div class="preview"></div> -->
+                        </div>
+                        <div class="field">
+                            <%= f.label :caption %>
+                            <%= f.text_area :caption, class: "form-control", placeholder: "コメントを入力" %>
+                        </div>
+                        <div class="field">
+                            <%= f.label :nation %>
+                            <%= f.select :nation_id, options_from_collection_for_select(Nation.all, :id, :nation_name, @post.nation_id), {}, class: "searchable" %>
+                        </div>
+                        <div>
+                            <%= f.submit "create", class: "btn" %>
+                        </div>
+                    <% end %>
+                </div>
+            </div>
+        </div>

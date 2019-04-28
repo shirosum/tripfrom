@@ -71,13 +71,13 @@
                   <% end %>
                 </div>
               </li>
-              <!-- <li>
+              <li>
                 <div class="header-item">
-                  <%=link_to new_post_path do %>
+                  <%= link_to new_post_path do %>
                     <span class="header-icon"><i class="fas fa-camera"></i></span>
                     <p> NewPost</p>
                   <% end %>
-                </div> -->
+                </div>
               </li>
               <li>
                 <div class="header-item">
@@ -124,8 +124,8 @@
     </header>
 
     <!-- modal signup login -->
-    <div class="sign_modal_wrapper">
-        <div class="sign_modal">
+        <div class="sign_modal_wrapper">
+          <div class="sign_modal">
             <div class="sign_up_modal sign_modal_content">
               <h2>新規登録</h2>
               <form class="new_user"action="/users" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="tWQXIbdNUc+zFnHvDa/A7ASlxc5CQn+eaaE/oGQDWU/5y0I77MiFigp6WQX9tjn0GUmHNViBO3rIFNYllj6WYw==">
@@ -180,8 +180,7 @@
               </form>
             </div>
           </div>
-
-    </div>
+        </div>
 
 
     <%= yield %>

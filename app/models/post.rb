@@ -34,5 +34,5 @@ class Post < ApplicationRecord
     has_many_attached :captures
     validates :captures, presence: true
 
-    validates :caption, length: { maximum: 500 }
+    validates :caption, length: { maximum: 400 }
 end

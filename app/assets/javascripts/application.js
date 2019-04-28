@@ -10,9 +10,10 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require jquery
 //= require rails-ujs
 //= require activestorage
-//= require jquery
+//= require bxslider
 //= require infinite-scroll.pkgd.min.js
 //= require bootstrap-sprockets
 //= require select2
@@ -49,6 +50,21 @@ $(document).on('turbolinks:load', function() {
           window.location.href = `/posts?q%5Bnation_nation_name_cont%5D=${region}`;
         }
     });
+
+
+      // $('.post_capture_<%= @post.id %>').bxSlider({
+      //   mode: 'horizontal',
+      //   auto: true,           // 自動スライド
+      //   speed: 1000,          // スライドするスピード
+      //   moveSlides: 1,        // 移動するスライド数
+      //   pause: 3000,          // 自動スライドの待ち時間
+      //   maxSlides: 4,         // 一度に表示させる最大数
+      //   slideWidth: 250,      // 各スライドの幅
+	    //   randomStart: true,    // 最初に表示するスライドをランダムに設定
+      //   autoHover: true       // ホバー時に自動スライドを停止
+      // });
+
+
 
     // preview表示
     $('form').on('change', 'input[type="file"]', function(e){

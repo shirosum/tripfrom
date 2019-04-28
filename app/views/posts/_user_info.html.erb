@@ -50,30 +50,3 @@
 
 
 
-<!-- new- post-modal -->
-<div class="postn_modal_wrapper">
-    <div class="postn_modal">
-        <div class="postn_modal_content">
-            <h2>new Post</h2>
-            <%= form_with model: @post do |f| %>
-            <div class="error-message"></div>
-                 <div class="field">
-                    <%= f.label :capture %>
-                    <%= f.file_field :captures, multiple: true, class: "form-control" %>
-                    <!-- <div class="preview"></div> -->
-                 </div>
-                 <div class="field">
-                    <%= f.label :caption %>
-                    <%= f.text_area :caption, class: "form-control", placeholder: "コメントを入力" %>
-                 </div>
-                 <div class="field">
-                    <%= f.label :nation %>
-                    <%= f.select :nation_id, options_from_collection_for_select(Nation.all, :id, :nation_name, @post.nation_id), {}, class: "searchable" %>
-                 </div>
-                 <div>
-                    <%= f.submit "create", class: "btn" %>
-                 </div>
-            <% end %>
-        </div>
-    </div>
-</div>
