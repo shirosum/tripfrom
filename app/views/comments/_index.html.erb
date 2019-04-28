@@ -1,5 +1,5 @@
 <div>
-    <% comments.each do |comment| %>
+    <% comments.find_each do |comment| %>
         <% unless comment.id.nil? %>
             <div>
                 <%= link_to "#{comment.user.user_name}", user_path(comment.user.id) %>

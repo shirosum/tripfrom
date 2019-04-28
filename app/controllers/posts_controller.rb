@@ -22,16 +22,16 @@ class PostsController < ApplicationController
             @userf = @user.followings.with_attached_avatar.page(params[:page]).per(16).reverse_order
         end
         @q = Post.with_attached_captures.includes(:captures_attachments, :user, :nation, :likes).ransack(params[:q])
-        @result = @q.result.page(params[:page]).per(16).reverse_order()
+        @result = @q.result.page(params[:page]).per(16).reverse_order
         @like = Like.new
         @post = Post.new
     end
 
     def show
-        @like = Like.new()
+        @like = Like.new
         @post = Post.find(params[:id])
         @comment = Comment.new
-        @comments = @post.comments
+        @comments = @post.comments.reverse_order
         @latestposts = @post.user.posts.last(3)
     end
 
