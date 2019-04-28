@@ -46,7 +46,7 @@
                                     <% if @post.user.avatar.attached? %>
                                         <%= image_tag @post.user.avatar.variant(combine_options:{resize:"150x150^",crop:"150x150+0+0",gravity: :center}).processed, class: "user-avatar" %>
                                     <% else %>
-                                        <%= image_tag 'images/img/no_image_user.png', :size => "150x150", class: "user-avatar" %>
+                                        <%= image_tag '/images/img/no_image_user.png', :size => "150x150", class: "user-avatar" %>
                                     <% end %>
                                 <% end %>
                             </div>

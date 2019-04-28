@@ -20,7 +20,7 @@
                                                 <% if post.user.avatar.attached? %>
                                                     <%= image_tag post.user.avatar.variant(combine_options:{resize:"50x50^",crop:"50x50+0+0",gravity: :center}).processed, class: "user-avatar" %>
                                                 <% else %>
-                                                    <%= image_tag "images/img/no_image_user.png", :size => "50x50", class: "user-avatar" %>
+                                                    <%= image_tag "/images/img/no_image_user.png", :size => "50x50", class: "user-avatar" %>
                                                 <% end %>
                                             <% end %>
                                             <%= link_to user_path(post.user) do %>
@@ -76,7 +76,7 @@
                                                 <% if post.user.avatar.attached? %>
                                                     <%= image_tag post.user.avatar.variant(combine_options:{resize:"50x50^",crop:"50x50+0+0",gravity: :center}).processed, class: "user-avatar" %>
                                                 <% else %>
-                                                    <%= image_tag "images/img/mo_image_user.png", :size => "50x50", class: "user-avatar" %>
+                                                    <%= image_tag "/images/img/mo_image_user.png", :size => "50x50", class: "user-avatar" %>
                                                 <% end %>
                                             <% end %>
                                             <%= link_to user_path(post.user) do %>
@@ -167,7 +167,7 @@
                                     <% if post.user.avatar.attached? %>
                                         <%= image_tag post.user.avatar, :size => "50x50", class: "user-avatar" %>
                                     <% else %>
-                                        <%= image_tag 'images/img/no_image_user.png', :size => "50x50", class: "user-avatar" %>
+                                        <%= image_tag '/images/img/no_image_user.png', :size => "50x50", class: "user-avatar" %>
                                     <% end %>
                                     <%= post.user.user_name %>
                                 <% end %>の投稿

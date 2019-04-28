@@ -7,7 +7,7 @@
                         <% if @user.avatar.attached? %>
                             <%= image_tag @user.avatar, :size => "200x200", class: "user-avatar" %>
                         <% else %>
-                            <%= image_tag 'images/img/no_image_user.png', :size => "200x200", class: "user-avatar" %>
+                            <%= image_tag '/images/img/no_image_user.png', :size => "200x200", class: "user-avatar" %>
                         <% end %>
                     </div>
                     <div class="suser-info">
@@ -57,7 +57,7 @@
                                     <% if post.user.avatar.attached? %>
                                         <%= image_tag post.user.avatar, :size => "50x50", class: "user-avatar" %>
                                     <% else %>
-                                        <%= image_tag 'images/img/no_image_user.png', :size => "50x50", class: "user-avatar" %>
+                                        <%= image_tag '/images/img/no_image_user.png', :size => "50x50", class: "user-avatar" %>
                                     <% end %>
                                     <%= post.user.user_name %>
                                 <% end %>
