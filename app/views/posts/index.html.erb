@@ -72,16 +72,18 @@
                                 <% @posts.each do |post| %>
                                     <div class="post">
                                         <div class="post-user-info">
-                                            <%= link_to user_path(post.user) do %>
-                                                <% if post.user.avatar.attached? %>
-                                                    <%= image_tag post.user.avatar.variant(combine_options:{resize:"50x50^",crop:"50x50+0+0",gravity: :center}).processed, class: "user-avatar" %>
-                                                <% else %>
-                                                    <%= image_tag "/images/img/mo_image_user.png", :size => "50x50", class: "user-avatar" %>
+                                            <div>
+                                                <%= link_to user_path(post.user) do %>
+                                                    <% if post.user.avatar.attached? %>
+                                                        <%= image_tag post.user.avatar.variant(combine_options:{resize:"50x50^",crop:"50x50+0+0",gravity: :center}).processed, class: "user-avatar" %>
+                                                    <% else %>
+                                                        <%= image_tag "/images/img/mo_image_user.png", :size => "50x50", class: "user-avatar" %>
+                                                    <% end %>
                                                 <% end %>
-                                            <% end %>
-                                            <%= link_to user_path(post.user) do %>
-                                                <%= post.user.user_name %>
-                                            <% end %>
+                                                <%= link_to user_path(post.user) do %>
+                                                    <%= post.user.user_name %>
+                                                <% end %>
+                                            </div>
                                             <div class="createddate">
                                                 投稿日時｜<%= post.created_at.strftime("%Y/%m/%d %H:%M:%S") %>
                                             </div>

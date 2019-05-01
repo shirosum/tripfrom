@@ -5,9 +5,9 @@
             <%= link_to post_like_path(post_id: post.id, id: post.likes[0].id), method: :delete, remote: true do %>
                     <i class="fas fa-heart"></i>
             <% end %>
-            <% if post.liked_users.count > 0 %>
+            <% if post.liked_users.size > 0 %>
                 <label for="triggery">
-                    <%= post.liked_users.count %>件のいいね
+                    <%= post.liked_users.size %>件のいいね
                 </label>
             <% end %>
         </div>
@@ -16,9 +16,9 @@
             <%= link_to post_likes_path(post.id), method: :post, remote: true do %>
                 <i class="far fa-heart"></i>
             <% end %>
-            <% if post.liked_users.count > 0 %>
+            <% if post.liked_users.size > 0 %>
                 <label for="triggery">
-                    <%= post.liked_users.count %>件のいいね
+                    <%= post.liked_users.size %>件のいいね
                 </label>
             <% end %>
         </div>
@@ -26,7 +26,7 @@
 
 <% else %>
 
-    <% if post.liked_users.count > 0 %>
+    <% if post.liked_users.size > 0 %>
         <div class="vertical-icons">
             <i class="far fa-heart"></i>
         </div>
