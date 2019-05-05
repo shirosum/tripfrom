@@ -11,6 +11,8 @@ class Post < ApplicationRecord
         likes.find_by(user_id: user_id)
     end
 
+
+
     # tag
     has_and_belongs_to_many :tags
     after_create do

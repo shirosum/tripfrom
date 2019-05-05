@@ -1,45 +1,41 @@
 <div>
     <div id="user-info">
         <div class="user-info clearfix">
-            <div class="">
-            <%= link_to user_path(user) do %>
-                <% if user.avatar.attached? %>
-                    <%= image_tag user.avatar.variant(combine_options:{resize:"120x120^",crop:"120x120+0+0",gravity: :center}).processed, class: "user-avatar" %>
-                <% else %>
-                    <%= image_tag "/images/img/no_image_user.png", :size => "120x120", class: "user-avatar" %>
-                <% end %>
-            <% end %>
-            </div>
-            <div class="">
+            <div class="user-info">
                 <%= link_to user_path(user) do %>
                     <%= user.user_name %>
                 <% end %>
             </div>
-            <div class="">
+            <div class="user-info">
+                <%= link_to user_path(user) do %>
+                    <% if user.avatar.attached? %>
+                        <%= image_tag user.avatar.variant(combine_options:{resize:"120x120^",crop:"120x120+0+0",gravity: :center}).processed, class: "user-avatar" %>
+                    <% else %>
+                        <%= image_tag "/images/img/no_image_user.png", :size => "120x120", class: "user-avatar" %>
+                    <% end %>
+                <% end %>
+            </div>
+            <div class="user-info">
                 <%= render 'users/stats' %>
             </div>
-            <div class="liked_button">
-                <label for="trigger">いいねした投稿</label>
+            <div class="liked_button user-info">
+                <label for="trigger">Liked Posts</label>
             </div>
-            <div>
+            <div class="user-info">
                 <label class="postn_button">新規投稿</label>
             </div>
-            <div id="tab-menu" class="clearfix">
-                <div class="">
-                    <div class="tab-headline">
-                        <a href="#tab1" class="active">
-                            <i class="far fa-images"></i>
-                            <span>Posts</span>
-                        </a>
-                    </div>
+            <div id="tab-menu" class="user-info">
+                <div class="tab-headline">
+                    <a href="#tab1" class="active">
+                        <i class="far fa-images"></i>
+                        <span><strong>All Posts</strong></span>
+                    </a>
                 </div>
-                <div>
-                    <div class="tab-headline">
-                        <a href="#tab2" class="">
-                            <i class="far fa-clock"></i>
-                            <span>Timeline</span>
-                        </a>
-                    </div>
+                <div class="tab-headline">
+                    <a href="#tab2" class="">
+                        <i class="far fa-clock"></i>
+                        <span><strong>Timeline</strong></span>
+                    </a>
                 </div>
             </div>
         </div>

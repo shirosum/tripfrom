@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :authenticate_admin, only:[:index]
-  before_action :authenticate_correct_user, only:[:edit, :update]
 
 
   def index

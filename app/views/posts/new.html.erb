@@ -1,32 +1,30 @@
 <body id="bodypostn">
     <div class="container">
-        <div class="row">
-                <div class="postn_modal_wrapper">
-                        <div class="postn_modal">
-                            <div class="postn_modal_content">
-                                <h2>new Post</h2>
-                                <%= form_with model: @post do |f| %>
-                                <div class="error-message"></div>
-                                    <div class="field">
-                                        <%= f.label :capture %>
-                                        <%= f.file_field :captures %>
-                                        <!-- <div class="preview"></div> -->
-                                    </div>
-                                    <div class="field">
-                                        <%= f.label :caption %>
-                                        <%= f.text_area :caption, class: "form-control", placeholder: "コメントを入力" %>
-                                    </div>
-                                    <div class="field">
-                                        <%= f.label :nation %>
-                                        <%= f.select :nation_id, options_from_collection_for_select(Nation.all, :id, :nation_name, @post.nation_id), {}, class: "searchable" %>
-                                    </div>
-                                    <div>
-                                        <%= f.submit "create", class: "btn" %>
-                                    </div>
-                                <% end %>
-                            </div>
+            <h2 class="text-center">Create new Post</h2>
+            <%= form_with model: @post do |f| %>
+                <div class="error-message"></div>
+                <div class="post-new">
+                    <div class="field">
+                        <span><i class="fa fa-camera"></i> <strong>Captutre</strong></span>
+                        <%= f.file_field :captures, multiple: true %>
+                        <div class="preview">
+                            <%= image_tag '/images/img/no_image.jpg', :size => "614x614", class: "preview" %>
                         </div>
                     </div>
-        </div>
+                    <div class="post-new">
+                        <div class="field">
+                            <span><i class="far fa-comment"></i> <strong>Caption</strong></span><br/>
+                            <%= f.text_area :caption, class: "form-control", placeholder: "Enter comment" %>
+                        </div>
+                        <div class="field">
+                            <span><i class="fas fa-globe-americas"></i> <strong>Country</strong></span><br/>
+                            <%= f.select :nation_id, options_from_collection_for_select(Nation.all, :id, :nation_name, @post.nation_id), {}, class: "searchable" %>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <%= f.submit "create", class: "btn btn-default btn-lg", name: "create_button" %>
+                </div>
+            <% end %>
     </div>
 </body>

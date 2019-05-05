@@ -2,13 +2,20 @@
     <body id="bodyeuser">
         <div class="container">
             <div class="row">
-                <h2>ユーザー編集</h2>
+                <h2 class="text-center">ユーザー情報編集</h2>
                 <%= form_with model: @user, local: true do |f| %>
-                    <h4>ユーザー</h4>
-                    <%= f.text_field :user_name %>
-                    <%= f.file_field :avatar %>
-                    <%= link_to 'back', user_path(@user), class: "btn btn-default" %>
-                    <%= f.submit '更新', class: "btn btn-default" %>
+                    <h4 class="text-center">ユーザー</h4>
+                    <div class="field text-center">
+						<span> <i class="far fa-user"></i> </span>
+						<%= f.text_field :user_name %>
+                    </div>
+                    <div class="text-center">
+                        <span><i class="far fa-user-circle"> <%= f.file_field :avatar, class: "field" %></i></span>
+                    </div>
+                    <div class="text-center">
+                        <%= link_to 'back', user_path(@user), class: "btn btn-default" %>
+                        <%= f.submit '更新', class: "btn btn-default" %>
+                    </div>
                 <% end %>
             </div>
         </div>

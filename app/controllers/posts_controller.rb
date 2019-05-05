@@ -9,10 +9,18 @@ class PostsController < ApplicationController
     def create
         @post = Post.new(post_params)
         @post.user_id = current_user.id
-        if @post.save
-            render :success
+        if params[:create_button]
+            if @post.save
+                redirect_to posts_path
+            else
+                render :new
+            end
         else
-            render :error
+            if @post.save
+                render :success
+            else
+                render :error
+            end
         end
     end
 

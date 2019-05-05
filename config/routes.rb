@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'posts#index'
+  root 'roots#top'
   get '/admin_top', to: 'roots#admin_top'
   get '/maps', to: 'roots#map'
 

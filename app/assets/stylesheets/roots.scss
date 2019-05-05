@@ -3,7 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 #bodymap{
-    margin-top: 110px;
+    margin-top: 120px;
 }
 #vmap{
     width: 100%;
@@ -11,10 +11,24 @@
     display: cover;
 }
 
-.jumbotron{
-    height: 886px;
-    background: url(img/trip2.jpg);
-    background-size: cover;
-    background-position: bottom;
-    background-repeat: no-repeat;
+#topbody{
+    width: 100%;
+    height: auto;
+}
+
+.top-container{
+    display: block;
+    position: absolute;
+    right: 100px;
+    bottom: 110px;
+    text-align: right;
+}
+.top-headline{
+    color: rgba(255, 255, 255, 0.8)
+}
+.top-container a{
+    color: rgba(255, 255, 255, 0.6);
+}
+.top-container a:hover{
+    color: rgb(255, 255, 255);
 }

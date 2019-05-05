@@ -1,38 +1,40 @@
-<body id="topbody">
-    <div class="jumbotron vegas">
-        <div class="container">
-            <div class="row">
-                <div class="swiper-container">
-                    <!-- Additional required wrapper -->
-                    <div class="swiper-wrapper">
-                        <!-- Slides -->
-                        <div class="swiper-slide">Slide 1</div>
-                        <div class="swiper-slide">Slide 2</div>
-                        <div class="swiper-slide">Slide 3</div>
-                        ...
-                    </div>
-                    <!-- If we need pagination -->
-                    <div class="swiper-pagination"></div>
-                    
-                    <!-- If we need navigation buttons -->
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
+<body id="topbody" class="vegas">
+
+            <div class="top-container">
+                <div class="top-headline">
+                    <h1 class="top-headline"><strong>trip from</strong></h1>
+                    <h4 class=""><strong><%= link_to "Go everywhere", maps_path %></strong></h4>
+                    <% if user_signed_in? %>
+                        <p><%= link_to "Posts", posts_path %></p>
+                        <p><%= link_to "My page", users_path(current_user.id) %></p>
+                        <p><%= link_to "Create new Post", new_post_path %></p>
+                    <% else %>
+                        <p>Haev an account?<%= link_to "Log in", new_user_session_path %></p>
+                        <p>or <%= link_to "Sign up", new_user_registration_path %></p>
+                    <% end %>
                 </div>
             </div>
-            <!-- <div id="vmap"></div> -->
-        </div>
-    </div>
+
 </body>
 
 
 <script>
-var Swiper = new Swiper ('.swiper-container', {
-  loop: true,
-  slidesPerView: 2,
-  spaceBetween: 10,
-  centeredSlides : true,
-  pagination: '.swiper-pagination',
-  nextButton: '.swiper-button-next',
-  prevButton: '.swiper-button-prev'
+$(function(){
+    $('.vegas').vegas({
+        slides:[
+            {src:'/images/img/HOS_854_TP_V.jpg'},
+            {src:'/images/img/P1040541_TP_V.jpg'},
+            {src:'/images/img/TSU413024_TP_V.jpg'},
+            {src:'/images/img/hirota_TSA_TP_V.jpg'},
+            {src:'/images/img/MIYA2012DSCF8671_TP_V.jpg'}
+        ],
+        valign: 'center',
+        delay: 8000,
+        timer: true,
+        overlay: '/images/overlays/01.png',
+        animation: 'random',
+        transition: ['blur','fade'],
+        transitionDuration: 1000,
+    })
 })
 </script>

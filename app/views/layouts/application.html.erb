@@ -127,28 +127,26 @@
         <div class="sign_modal_wrapper">
           <div class="sign_modal">
             <div class="sign_up_modal sign_modal_content">
-              <h2>新規登録</h2>
+              <h2 class="new-users-headline">新規登録</h2>
               <form class="new_user"action="/users" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="tWQXIbdNUc+zFnHvDa/A7ASlxc5CQn+eaaE/oGQDWU/5y0I77MiFigp6WQX9tjn0GUmHNViBO3rIFNYllj6WYw==">
                 <div class="field">
-                    <label for="user_user_name">User Name</label><br>
-                    <input autofocus="autofocus" autocomplete="user_name" type="user_name" type="user_name" name="user[user_name]" >
+                    <span> <i class="fa fa-user"></i> </span>
+                    <input autofocus="autofocus" autocomplete="user_name" type="user_name" type="user_name" name="user[user_name]" placeholder=" Nick name" >
                 </div>
 
                 <div class="field">
-                  <label for="user_email">Email</label><br>
-                  <input autofocus="autofocus" autocomplete="email" type="email" value="" name="user[email]">
+                    <span> <i class="fa fa-envelope"></i> </span>
+                    <input autofocus="autofocus" autocomplete="email" type="email" value="" name="user[email]" placeholder=" Email adress">
                 </div>
 
                 <div class="field">
-                  <label for="user_password">Password</label>
-                  <em>(6 characters minimum)</em>
-                  <br>
-                  <input autocomplete="new-password" type="password" name="user[password]" aria-autocomplete="list">
+                    <span> <i class="fa fa-lock"></i> </span>
+                    <input autocomplete="new-password" type="password" name="user[password]" aria-autocomplete="list" placeholder=" 6 characters minimum">
                 </div>
 
                 <div class="field">
-                  <label for="user_password_confirmation">Password confirmation</label><br>
-                  <input autocomplete="new-password" type="password" name="user[password_confirmation]">
+                    <span> <i class="fa fa-lock"></i> </span>
+                    <input autocomplete="new-password" type="password" name="user[password_confirmation]" placeholder=" Repeat password">
                 </div>
 
                 <div class="actions">

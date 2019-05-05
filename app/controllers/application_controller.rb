@@ -17,11 +17,12 @@ class ApplicationController < ActionController::Base
     end
 
     def after_sign_out_path_for(resource)
-        posts_path
+        root_path
     end
 
     def authenticate_correct_user
-        user = User.find(params[:id])
+        post = Post.find(params[:id])
+        user = post.user
         if current_user.id != user.id
             redirect_to posts_path
         end
