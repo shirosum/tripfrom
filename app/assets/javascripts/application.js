@@ -40,13 +40,13 @@ $(document).on('turbolinks:load', function() {
         showTooltip: true,
         values: sample_data,
         onRegionClick: function(element, code, region) {
-          console.log(element);
-          console.log(code); //Country code will be passed to the callback as argument
-          console.log(region);
-          var message = 'You clicked "'
-          + region
-          + '" which has the code: '
-          + code          // alert(message);
+          // console.log(element);
+          // console.log(code); //Country code will be passed to the callback as argument
+          // console.log(region);
+          // const message = 'You clicked "'
+          // + region
+          // + '" which has the code: '
+          // + code          // alert(message);
           window.location.href = `/posts?q%5Bnation_nation_name_cont%5D=${region}`;
         }
     });
@@ -55,7 +55,7 @@ $(document).on('turbolinks:load', function() {
 
     // preview表示
     $('form').on('change', 'input[type="file"]', function(e){
-      var file = e.target.files[0],
+      let file = e.target.files[0],
           reader = new FileReader(),
           $preview = $(".preview");
 
