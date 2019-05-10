@@ -49,8 +49,7 @@
                                             <% if post.caption.length > 80 %>
                                                 <div class="grad-wrap">
                                                     <input id="trigger_<%= post.id %>" class="grad-trigger" type="checkbox">
-                                                    <label class="grad-btn" for="trigger_<%= post.id %>">全文を表示
-                                                    </label>
+                                                    <label class="grad-btn" for="trigger_<%= post.id %>">全文を表示</label>
                                                     <div class="grad-item">
                                                         <%= render_with_hashtag(post.caption) %>
                                                     </div>
@@ -95,41 +94,42 @@
                                                 <% end %>
                                             <% end %>
                                         </div>
-                                        <div class="nation-name">
-                                                Country : <%= truncate(post.nation.nation_name, :length => 34, :omission => "...") %>
-                                        </div>
-                                        <div id="likes_buttons_<%= post.id %>" class="likes_button">
-                                            <%= render partial: 'likes/like', locals: { post: post, likes: @likes } %>
-                                        </div>
-                                        <div>
-                                            <% if post.caption.length > 80 %>
-                                                <div class="grad-wrap">
-                                                    <input id="trigger_<%= post.id %>" class="grad-trigger" type="checkbox">
-                                                    <label class="grad-btn" for="trigger_<%= post.id %>">全文を表示
-                                                    </label>
-                                                    <div class="grad-item">
-                                                        <%= render_with_hashtag(post.caption) %>
+                                        <div class="post-info">
+                                            <div class="nation-name">
+                                                    Country : <%= truncate(post.nation.nation_name, :length => 34, :omission => "...") %>
+                                            </div>
+                                            <div id="likes_buttons_<%= post.id %>" class="likes_button">
+                                                <%= render partial: 'likes/like', locals: { post: post, likes: @likes } %>
+                                            </div>
+                                            <div>
+                                                <% if post.caption.length > 80 %>
+                                                    <div class="grad-wrap">
+                                                        <input id="trigger_<%= post.id %>" class="grad-trigger" type="checkbox">
+                                                        <label class="grad-btn" for="trigger_<%= post.id %>">全文を表示</label>
+                                                        <div class="grad-item">
+                                                            <%= render_with_hashtag(post.caption) %>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            <% else %>
-                                                <%= render_with_hashtag(post.caption) %>
-                                            <% end %>
+                                                <% else %>
+                                                    <%= render_with_hashtag(post.caption) %>
+                                                <% end %>
+                                            </div>
                                         </div>
+                                        <nav class="pagination"><%= paginate @userf %></nav>
                                     </div>
                                 <% end %>
                             <% end %>
-                            <nav class="pagination"><%= paginate @userf %></nav>
                         <% end %>
                     </div>
                 </div>
             </div>
         </div>
         <div class="">
-        <span id="back" class="">
-            <a href="#">
-                <i class="fas fa-chevron-up navbar-nav nav navbar-fixed-bottom fa-lg"></i>
-            </a>
-        </span>
+            <span id="back" class="">
+                <a href="#">
+                    <i class="fas fa-chevron-up navbar-nav nav navbar-fixed-bottom fa-lg"></i>
+                </a>
+            </span>
         </div>
     </div>
 </body>
