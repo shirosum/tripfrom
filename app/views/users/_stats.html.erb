@@ -2,20 +2,23 @@
     <div class="row">
         <% @user ||= current_user %>
         <div class="stats">
-            <label for="trigger2">
+            <%= link_to following_user_path(@user) do %>
                 <strong id="following" class="stat">
                     <%= @user.followings.count %>
                 </strong>follow
-            </label>
-            <label for="trigger3">
+            <% end %>
+            |
+            <%= link_to followers_user_path(@user) do %>
                 <strong id="followers" class="stat">
                     <%= @user.followers.count %>
                 </strong>follower
-            </label>
+            <% end %>
         </div>
     </div>
 </div>
 
+
+<!-- 
 <div class="modal_wrap">
     <input id="trigger2" type="checkbox">
     <div class="modal_overlay">
@@ -66,4 +69,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

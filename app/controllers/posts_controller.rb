@@ -30,7 +30,7 @@ class PostsController < ApplicationController
             @userf = @user.followings.with_attached_avatar.page(params[:page]).per(16).reverse_order
         end
         @q = Post.with_attached_captures.includes(:captures_attachments, :user, :nation, :likes).ransack(params[:q])
-        @result = @q.result.page(params[:page]).per(16).reverse_order
+        @result = @q.result(distinct: true).page(params[:page]).per(16).reverse_order
         @like = Like.new
         @post = Post.new
     end
@@ -72,6 +72,11 @@ class PostsController < ApplicationController
         if @post.destroy
             redirect_to user_path(current_user.id)
         end
+    end
+
+    def liked_users
+        @post = Post.find(params[:id])
+        @user = @post.liked_users.find_by(params[:user_id])
     end
 
     private

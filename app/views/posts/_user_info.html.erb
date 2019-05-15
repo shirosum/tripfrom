@@ -19,10 +19,10 @@
                 <%= render 'users/stats' %>
             </div>
             <div class="liked_button user-info">
-                <label for="trigger">Liked Posts</label>
+                <strong><%= link_to 'Liked Posts', liked_posts_user_path(@user) %></strong>
             </div>
             <div class="user-info">
-                <label class="postn_button">新規投稿</label>
+                <label class="postn_button">New Post</label>
             </div>
             <div id="tab-menu" class="user-info">
                 <div class="tab-headline">

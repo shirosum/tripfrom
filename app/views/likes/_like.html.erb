@@ -6,9 +6,9 @@
                     <i class="fas fa-heart"></i>
             <% end %>
             <% if post.liked_users.size > 0 %>
-                <label for="triggery">
-                    <%= post.liked_users.size %>件のいいね
-                </label>
+                <%= link_to liked_users_post_path(post) do %>
+                    <%= post.liked_users.size %>likes
+                <% end %>
             <% end %>
         </div>
     <% else %>
@@ -17,9 +17,9 @@
                 <i class="far fa-heart"></i>
             <% end %>
             <% if post.liked_users.size > 0 %>
-                <label for="triggery">
-                    <%= post.liked_users.size %>件のいいね
-                </label>
+                <%= link_to liked_users_post_path(post) do %>
+                    <%= post.liked_users.size %>likes
+                <% end %>
             <% end %>
         </div>
     <% end %>

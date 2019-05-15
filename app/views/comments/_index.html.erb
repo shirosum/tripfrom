@@ -2,12 +2,12 @@
     <% comments.find_each do |comment| %>
         <% unless comment.id.nil? %>
             <div>
-                <%= link_to "#{comment.user.user_name}", user_path(comment.user.id) %>
+                <%= link_to "#{comment.user.user_name}", user_path(comment.user.id) %> :
             </div>
             <div>
-                <%= comment.context %>
+                <%= comment.comment %>
                 <% if comment.user == current_user %>
-                    <%= link_to ' 削除', post_comment_path(comment.post_id, comment.id), method: :delete, remote: true %>
+                    <%= link_to 'delete', post_comment_path(comment.post_id, comment.id), method: :delete, remote: true, class: 'btn btn-sm btn-default' %>
                 <% end %>
             </div>
         <% end %>

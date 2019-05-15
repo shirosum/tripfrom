@@ -40,6 +40,11 @@ class UsersController < ApplicationController
     render 'show_follower'
   end
 
+  def liked_posts
+    @user = User.find(params[:id])
+    @posts = @user.liked_posts.includes(:captures_attachments)
+  end
+
   private
   def user_params
     params.require(:user).permit(:user_name, :email, :password, :avatar)

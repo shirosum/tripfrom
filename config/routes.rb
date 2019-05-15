@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show, :edit, :update, :destroy] do
     member do
       get :following, :followers, :users_posts
+      get :liked_posts
     end
   end
   resources :relationships, only: [:create, :destroy]
@@ -16,6 +17,9 @@ Rails.application.routes.draw do
 
 
   resources :posts do
+    member do
+      get :liked_users
+    end
     resources :likes, only: [:create, :destroy]
     resources :comments, only: [:create, :destroy]
   end

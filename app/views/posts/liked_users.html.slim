@@ -1,0 +1,26 @@
+body#body
+    .container
+        .row
+            h3.text-center Liked Users
+            table.table.table-default
+                thred.thred-default
+                    tr
+                        th
+                        th Name
+                        th Posts
+                        th
+                tbody
+                    - @post.liked_users.find_each do |user|
+                        tr
+                            td= link_to user_path(user) do
+                                - if user.avatar.attached?
+                                    = image_tag user.avatar.variant(combine_options:{resize: '50x50^', crop: '50x50+0+0', gravity: :center}).processed, class: 'user-avatar'
+                                - else
+                                    = image_tag '/images/img/no_image_user.png', :size => '50x50', class: 'user-avatar'
+                            td= user.user_name
+                            td
+                                strong= user.posts.size
+                                |posts
+                            td
+                                i.far.fa-hand-point-right
+                                    = link_to ' detail', user_path(user)

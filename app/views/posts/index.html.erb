@@ -28,7 +28,7 @@
                                             <% end %>
                                         </div>
                                         <div class="createddate">
-                                            投稿日時｜<%= post.created_at.strftime('%Y/%m/%d %H:%M:%S') %>
+                                            Posting Date｜<%= post.created_at.strftime('%Y/%m/%d %H:%M:%S') %>
                                         </div>
                                     </div>
                                     <div class="post_capture_<%= post.id %>">
@@ -49,7 +49,7 @@
                                             <% if post.caption.length > 80 %>
                                                 <div class="grad-wrap">
                                                     <input id="trigger_<%= post.id %>" class="grad-trigger" type="checkbox">
-                                                    <label class="grad-btn" for="trigger_<%= post.id %>">全文を表示</label>
+                                                    <label class="grad-btn" for="trigger_<%= post.id %>">view full text</label>
                                                     <div class="grad-item">
                                                         <%= render_with_hashtag(post.caption) %>
                                                     </div>
@@ -84,7 +84,7 @@
                                                 <% end %>
                                             </div>
                                             <div class="createddate">
-                                                投稿日時｜<%= post.created_at.strftime("%Y/%m/%d %H:%M:%S") %>
+                                                Posting Date｜<%= post.created_at.strftime("%Y/%m/%d %H:%M:%S") %>
                                             </div>
                                         </div>
                                         <div class="post_capture_<%= post.id %>">
@@ -105,7 +105,7 @@
                                                 <% if post.caption.length > 80 %>
                                                     <div class="grad-wrap">
                                                         <input id="trigger_<%= post.id %>" class="grad-trigger" type="checkbox">
-                                                        <label class="grad-btn" for="trigger_<%= post.id %>">全文を表示</label>
+                                                        <label class="grad-btn" for="trigger_<%= post.id %>">view full text</label>
                                                         <div class="grad-item">
                                                             <%= render_with_hashtag(post.caption) %>
                                                         </div>
@@ -133,63 +133,6 @@
         </div>
     </div>
 </body>
-
-
-<div class="modal_wrap">
-        <input id="triggery" type="checkbox">
-        <div class="modal_overlay">
-            <label for="triggery" class="modal_trigger"></label>
-            <div class="modal_content">
-                <label for="triggery" class="close_button">✖️</label>
-                <p><strong>いいねしたユーザー</strong></p>
-                <div>
-                    <% @post.liked_users.find_each do |user|%>
-                        <%= link_to user_path(user) do %>
-                        <li><%= user.user_name %></li>
-                    <% end %>
-                <% end %>
-            </div>
-        </div>
-    </div>
-</div>
-
-<% if user_signed_in? %>
-    <div class="modal_wrap">
-        <input id="trigger" type="checkbox">
-        <div class="modal_overlay">
-            <label for="trigger" class="modal_trigger"></label>
-            <div class="modal_content">
-                <label for="trigger" class="close_button">✖️</label>
-                <p><strong>いいねした投稿</strong></p>
-                <div>
-                    <% @user.liked_posts.includes(:user).find_each do |post| %>
-                        <div class="lpost-box">
-                            <div class="lpost">
-                                <%= link_to user_path(post.user) do %>
-                                    <% if post.user.avatar.attached? %>
-                                        <%= image_tag post.user.avatar, :size => "50x50", class: "user-avatar" %>
-                                    <% else %>
-                                        <%= image_tag '/images/img/no_image_user.png', :size => "50x50", class: "user-avatar" %>
-                                    <% end %>
-                                    <%= post.user.user_name %>
-                                <% end %>の投稿
-                            </div>
-                            <div>
-                                <%= link_to post_path(post) do %>
-                                    <% post.captures.find_each do |capture| %>
-                                            <%= image_tag capture.variant(combine_options:{resize:"50x50^",crop:"50x50+0+0", gravity: :center}).processed, class: "lposts" %>
-                                        <% end %>
-                                    <% end %>
-                                にいいねしました
-                            </div>
-                        </div>
-                    <% end %>
-                </div>
-            </div>
-        </div>
-    </div>
-<% end %>
-
 
      <!-- new- post-modal -->
      <div class="postn_modal_wrapper">

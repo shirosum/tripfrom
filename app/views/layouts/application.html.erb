@@ -19,7 +19,7 @@
           <% else %>
             <% user_name = "guest" %>
           <% end %>
-          ようこそ<strong><%= " #{user_name}" %></strong>さん
+          Welcome<strong><%= " #{user_name}" %></strong>！
         </nav>
       </div>
 
@@ -37,7 +37,7 @@
           <dl class="searchbox">
               <% provide(:post_caption, 'All posts') %>
               <%= search_form_for @q do |f| %>
-                  <dt><%= f.text_field :user_user_name_or_caption_or_nation_nation_name_cont ,placeholder: '投稿を検索...' %></dt>
+                  <dt><%= f.text_field :user_user_name_or_caption_or_nation_nation_name_cont ,placeholder: ' Search Posts...' %></dt>
                   <dd>
                       <%= button_tag( class: "search-btn") do %>
                           <%= content_tag :span, "", class: "fa fa-search" %>
@@ -91,7 +91,7 @@
                 <div class="header-item">
                   <%= link_to destroy_user_session_path, method: :delete do %>
                     <span class="header-icon"><i class="fas fa-sign-out-alt"></i></span>
-                    <p> ログアウト</p>
+                    <p> LogOut</p>
                   <% end %>
                 </div>
               </li>
@@ -127,7 +127,7 @@
         <div class="sign_modal_wrapper">
           <div class="sign_modal">
             <div class="sign_up_modal sign_modal_content">
-              <h2 class="new-users-headline">新規登録</h2>
+              <h2 class="new-users-headline">Sign Up</h2>
               <form class="new_user"action="/users" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="tWQXIbdNUc+zFnHvDa/A7ASlxc5CQn+eaaE/oGQDWU/5y0I77MiFigp6WQX9tjn0GUmHNViBO3rIFNYllj6WYw==">
                 <div class="field">
                     <span> <i class="fa fa-user"></i> </span>
@@ -155,7 +155,7 @@
               </form>
             </div>
             <div class="sign_in_modal sign_modal_content">
-              <h2>ログインフォーム</h2>
+              <h2>Log In</h2>
               <form class="new_user" action="/users/sign_in" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="ATN3VBw0hRBi8JwLEs8fCBiic/7VxLGZZGDVI6RSVr55wgNTl50canQaDHgEpozHn9rCEl27Lz0Z4VJMVTJKpw==">
                 <div class="field">
                   <label for="user_user_name">User Name</label><br>
@@ -184,7 +184,7 @@
     <%= yield %>
 
     <footer class="footer">
-      <div class="col-xs-offset-9">CopyRight tripfrom</div>
+      <div class="col-xs-offset-9">tripfrom</div>
     </footer>
 
       <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/js/swiper.min.js"></script>

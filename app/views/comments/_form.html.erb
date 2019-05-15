@@ -1,11 +1,12 @@
 <div>
+    <span><i class="far fa-comment"></i> <strong>make a comment</strong></span>
     <%= form_with(model: [post, comment]) do |f| %>
         <div>
-            <%= f.text_area :context, placeholder: "コメントを入力", id: "text_area", class: "form-control"%>
+            <%= f.text_area :comment, placeholder: "Enter Comment", id: "text_area", class: "form-control"%>
         </div>
         <div>
             <%= button_tag( class: "btn btn-default btn-sm") do %>
-                <%= content_tag :div, " コメント", class: "glyphicon glyphicon-comment"%>
+                <%= content_tag :div, "Comment"%>
             <% end %>
         </div>
     <% end %>

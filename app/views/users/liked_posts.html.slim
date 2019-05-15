@@ -1,0 +1,9 @@
+body#body
+    .container
+        .row
+            .liked-posts.text-center
+                h3.text-center Liked Posts
+                - @user.liked_posts.includes(:user).find_each do |post|
+                    = link_to post_path(post) do
+                        - post.captures.find_each do |capture|
+                            = image_tag capture.variant(combine_options:{resize: '300x300^', crop: '300x300+0+0', gravity: :center}).processed

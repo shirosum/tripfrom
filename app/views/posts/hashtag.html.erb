@@ -12,7 +12,7 @@
                 <div id="tab-contents">
                     <div id="tab1" class="tab">
                         <div id="posts" class="posts">
-                            <% @posts.find_each do |post| %>
+                            <% @posts.each do |post| %>
                                 <div class="post">
                                     <div class="post-user-info">
                                         <div>
@@ -49,8 +49,7 @@
                                             <% if post.caption.length > 80 %>
                                                 <div class="grad-wrap">
                                                     <input id="trigger_<%= post.id %>" class="grad-trigger" type="checkbox">
-                                                    <label class="grad-btn" for="trigger_<%= post.id %>">全文を表示
-                                                    </label>
+                                                    <label class="grad-btn" for="trigger_<%= post.id %>">view full text</label>
                                                     <div class="grad-item">
                                                         <%= render_with_hashtag(post.caption) %>
                                                     </div>
@@ -69,21 +68,23 @@
                         <% if user_signed_in? %>
                             <% @userf.find_each do |user| %>
                             <% @posts = Post.where(user_id: user.id).reverse_order %>
-                                <% @posts.find_each do |post| %>
+                                <% @posts.each do |post| %>
                                     <div class="post">
                                         <div class="post-user-info">
-                                            <%= link_to user_path(post.user) do %>
-                                                <% if post.user.avatar.attached? %>
-                                                    <%= image_tag post.user.avatar.variant(combine_options:{resize:"50x50^",crop:"50x50+0+0",gravity: :center}).processed, class: "user-avatar" %>
-                                                <% else %>
-                                                    <%= image_tag "/images/img/mo_image_user.png", :size => "50x50", class: "user-avatar" %>
+                                            <div>
+                                                <%= link_to user_path(post.user) do %>
+                                                    <% if post.user.avatar.attached? %>
+                                                        <%= image_tag post.user.avatar.variant(combine_options:{resize:"50x50^",crop:"50x50+0+0",gravity: :center}).processed, class: "user-avatar" %>
+                                                    <% else %>
+                                                        <%= image_tag "/images/img/mo_image_user.png", :size => "50x50", class: "user-avatar" %>
+                                                    <% end %>
                                                 <% end %>
-                                            <% end %>
-                                            <%= link_to user_path(post.user) do %>
-                                                <%= post.user.user_name %>
-                                            <% end %>
+                                                <%= link_to user_path(post.user) do %>
+                                                    <%= post.user.user_name %>
+                                                <% end %>
+                                            </div>
                                             <div class="createddate">
-                                                投稿日時｜<%= post.created_at.strftime("%Y/%m/%d %H:%M:%S") %>
+                                                Posting Date｜<%= post.created_at.strftime("%Y/%m/%d %H:%M:%S") %>
                                             </div>
                                         </div>
                                         <div class="post-capture-box">
@@ -93,25 +94,26 @@
                                                 <% end %>
                                             <% end %>
                                         </div>
-                                        <div class="nation-name">
-                                                Country : <%= truncate(post.nation.nation_name, :length => 40, :omission => "...") %>
-                                        </div>
-                                        <div id="likes_buttons_<%= post.id %>" class="likes_button">
-                                            <%= render partial: 'likes/like', locals: { post: post, likes: @likes } %>
-                                        </div>
-                                        <div>
-                                            <% if post.caption.length > 80 %>
-                                                <div class="grad-wrap">
-                                                    <input id="trigger_<%= post.id %>" class="grad-trigger" type="checkbox">
-                                                    <label class="grad-btn" for="trigger_<%= post.id %>">全文を表示
-                                                    </label>
-                                                    <div class="grad-item">
-                                                        <%= render_with_hashtag(post.caption) %>
+                                        <div class="post-info">
+                                            <div class="nation-name">
+                                                    Country : <%= truncate(post.nation.nation_name, :length => 40, :omission => "...") %>
+                                            </div>
+                                            <div id="likes_buttons_<%= post.id %>" class="likes_button">
+                                                <%= render partial: 'likes/like', locals: { post: post, likes: @likes } %>
+                                            </div>
+                                            <div>
+                                                <% if post.caption.length > 80 %>
+                                                    <div class="grad-wrap">
+                                                        <input id="trigger_<%= post.id %>" class="grad-trigger" type="checkbox">
+                                                        <label class="grad-btn" for="trigger_<%= post.id %>">view full text</label>
+                                                        <div class="grad-item">
+                                                            <%= render_with_hashtag(post.caption) %>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            <% else %>
-                                                <%= render_with_hashtag(post.caption) %>
-                                            <% end %>
+                                                <% else %>
+                                                    <%= render_with_hashtag(post.caption) %>
+                                                <% end %>
+                                            </div>
                                         </div>
                                     </div>
                                 <% end %>
@@ -123,16 +125,41 @@
             </div>
         </div>
         <div class="">
-        <span id="back" class="">
-            <a href="#">
-                <i class="fas fa-chevron-up navbar-nav nav navbar-fixed-bottom fa-lg"></i>
-            </a>
-        </span>
+            <span id="back" class="">
+                <a href="#">
+                    <i class="fas fa-chevron-up navbar-nav nav navbar-fixed-bottom fa-lg"></i>
+                </a>
+            </span>
         </div>
     </div>
 </body>
 
 
 
-
-  
+     <!-- new- post-modal -->
+     <div class="postn_modal_wrapper">
+            <div class="postn_modal">
+                <div class="postn_modal_content">
+                    <h2>New Post</h2>
+                    <%= form_with model: @post do |f| %>
+                    <div class="error-message"></div>
+                        <div class="field">
+                            <%= f.label :capture %>
+                            <%= f.file_field :captures, multiple: true %>
+                            <!-- <div class="preview"></div> -->
+                        </div>
+                        <div class="field">
+                            <%= f.label :caption %>
+                            <%= f.text_area :caption, class: "form-control", placeholder: "コメントを入力" %>
+                        </div>
+                        <div class="field">
+                            <%= f.label :nation %>
+                            <%= f.select :nation_id, options_from_collection_for_select(Nation.all, :id, :nation_name, @post.nation_id), {}, class: "searchable" %>
+                        </div>
+                        <div>
+                            <%= f.submit "create", class: "btn" %>
+                        </div>
+                    <% end %>
+                </div>
+            </div>
+        </div>

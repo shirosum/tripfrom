@@ -1,4 +1,4 @@
-<body id="bodyposts">
+<body id="body">
     <div class="container col-xs-offset-2">
         <% if user_signed_in? %>
             <div class="row post-show">
@@ -12,7 +12,7 @@
                     </div>
                     <div class="spost-info">
                         <div class="nation">
-                            <%= @post.nation.nation_name %>
+                            <i class="fas fa-globe-americas"></i> <%= @post.nation.nation_name %>
                         </div>
                         <div class="caption">
                             <%= render_with_hashtag(@post.caption) %>
@@ -22,21 +22,21 @@
                         </div>
                     </div>
                     <div class="createddate">
-                        投稿日時｜<%= @post.created_at.strftime('%Y/%m/%d %H:%M:%S') %>
+                        Posting Date｜<%= @post.created_at.strftime('%Y/%m/%d %H:%M:%S') %>
                     </div>
                     <div>
                         <% if user_signed_in? %>
                             <% if current_user.id == @post.user_id or current_user.admin? %>
-                                投稿の
-                                <%= link_to '削除', post_path, method: :delete, "data-confirm" => "本当に削除しますか？" %>
-                                ｜
-                                <%= link_to '編集', edit_post_path(@post) %>
+                                Post |
+                                <%= link_to 'Edit', edit_post_path(@post), class: 'btn btn-sm btn-primary' %>
+                                :
+                                <%= link_to 'Delete', post_path, method: :delete, "data-confirm" => "Are you sure？", class: 'btn btn-sm btn-default' %>
                             <% end %>
                         <% end %>
                     </div>
                     <div class="spost-user-box">
                         <div class="spost-user-info">
-                            <h4 class="">投稿者：
+                            <h4 class="">Poster：
                                 <%= link_to user_path(@post.user_id) do %>
                                     <%= @post.user.user_name %>
                                 <% end %>
@@ -52,7 +52,7 @@
                             </div>
                         </div>
                         <div class="latestposts-box">
-                            <h4>最近の <%= @post.user.user_name %> の投稿：</h4>
+                            <h4>Latest Posts by <%= @post.user.user_name %>：</h4>
                             <div>
                                 <% @latestposts.each do |post| %>
                                     <% post.captures.find_each do |capture| %>
@@ -70,7 +70,7 @@
                         <% if user_signed_in? %>
                             <%= render partial: 'comments/form', locals: { comment: @comment, post: @post } %>
                         <% end %>
-                        <h4>コメント一覧</h4>
+                        <h4><strong> Comments</strong></h4>
                         <div id="comments_area">
                             <%= render partial: 'comments/index', locals: { comments: @comments } %>
                         </div>
@@ -90,7 +90,7 @@
                 <label for="triggery" class="close_button">✖️</label>
                 <p><strong>いいねしたユーザー</strong></p>
                 <div class="fusers">
-                    <% @post.liked_users.find_each do |user|%>
+                    <% @post.liked_users.each do |user|%>
                         <div class="fuser">
                             <%= link_to user_path(user) do %>
                                 <% if user.avatar.attached? %>
