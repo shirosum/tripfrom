@@ -27,7 +27,14 @@
                     <strong><%= link_to 'Liked Posts', liked_posts_user_path(@user) %></strong>
                 </div>
             </div>
-            <h4 class="text-center"><%= @user.user_name %>'s Posts</h4>
+            <div class="text-center">
+                <% if @user.posts.size == 0 %>
+                    <h4>No Posts Yet</h4>
+                    <strong><%= link_to 'Create New Post', new_post_path, class: 'btn btn-default' %></strong>
+                <% elsif @user.posts.size > 0 %>
+                    <h4><%= @user.user_name %>'s Posts</h4>
+                <% end %>
+            </div>
             <div class="text-center">
                 <% @posts.each do |post| %>
                     <% post.captures.each do |capture| %>

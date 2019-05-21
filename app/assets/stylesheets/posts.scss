@@ -147,14 +147,6 @@
   }
 
 
-//   back
-#back{
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-}
-
-
 // .grad-btn {
 //     position:absolute;
 //     z-index: -1;
@@ -211,3 +203,9 @@
 .tab-headline:nth-child(2){
   margin-left: 10px;
 }
+
+.backicon{
+  position: fixed;
+  right: 33px;
+  bottom: 33px;
+  }
