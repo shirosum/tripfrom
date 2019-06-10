@@ -49,6 +49,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  # gem 'rubocop', require: false
 end
 
 group :test do
@@ -71,8 +72,6 @@ gem 'ransack', github: 'activerecord-hackery/ransack'
 gem 'kaminari', '~> 1.1.1'
 gem 'kaminari-bootstrap', '~>3.0.1'
 gem 'select2-rails'
-gem 'bxslider-rails'
-gem 'data-confirm-modal'
 gem 'aws-sdk-s3', require: false
 
 gem 'pry-rails'

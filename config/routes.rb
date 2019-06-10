@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'contacts/new'
+  get 'contacts/create'
   root 'roots#top'
   get '/admin_top', to: 'roots#admin_top'
   get '/maps', to: 'roots#map'

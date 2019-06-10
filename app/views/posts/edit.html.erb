@@ -1,33 +1,29 @@
 <body id="bodypostn">
         <div class="container">
             <div class="row">
-                    <div class="">
-                            <div class="">
-                                <div class="">
-                                    <h2>new Post</h2>
-                                    <%= form_with model: @post do |f| %>
-                                    <div class="error-message"></div>
-                                        <div class="field">
-                                            <%= f.label :capture %>
-                                            <% @post.captures.each do |capture| %>
-                                                <%= image_tag capture.variant(combine_options:{resize:"614x614^",crop:"614x614+0+0",gravity: :center}).processed %>
-                                            <% end %>
-                                        </div>
-                                        <div class="field">
-                                            <%= f.label :caption %>
-                                            <%= f.text_area :caption, class: "form-control", placeholder: "コメントを入力" %>
-                                        </div>
-                                        <div class="field">
-                                            <%= f.label :nation %>
-                                            <%= f.select :nation_id, options_from_collection_for_select(Nation.all, :id, :nation_name, @post.nation_id), {}, class: "searchable" %>
-                                        </div>
-                                        <div>
-                                            <%= f.submit "create", class: "btn" %>
-                                        </div>
-                                    <% end %>
-                                </div>
-                            </div>
+                <div class="">
+                    <h2>new Post</h2>
+                    <%= form_with model: @post do |f| %>
+                    <div class="error-message"></div>
+                        <div class="field">
+                            <%= f.label :capture %>
+                            <% @post.captures.each do |capture| %>
+                                <%= image_tag capture.variant(combine_options:{resize:"614x614^",crop:"614x614+0+0",gravity: :center}).processed %>
+                            <% end %>
                         </div>
+                        <div class="field">
+                            <%= f.label :caption %>
+                            <%= f.text_area :caption, class: "form-control", placeholder: "コメントを入力" %>
+                        </div>
+                        <div class="field">
+                            <%= f.label :nation %>
+                            <%= f.select :nation_id, options_from_collection_for_select(Nation.all, :id, :nation_name, @post.nation_id), {}, class: "searchable" %>
+                        </div>
+                        <div>
+                            <%= f.submit "create", class: "btn" %>
+                        </div>
+                    <% end %>
+                </div>
             </div>
         </div>
-    </body>
+</body>
