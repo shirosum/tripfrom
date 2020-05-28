@@ -69,7 +69,7 @@ gem 'bootstrap-sass', '~> 3.4.1'
 gem 'font-awesome-sass', '~> 5.8.1'
 gem 'jquery-rails'
 gem 'ransack', github: 'activerecord-hackery/ransack'
-gem 'kaminari', '~> 1.1.1'
+gem 'kaminari', '~> 1.2.1'
 gem 'kaminari-bootstrap', '~>3.0.1'
 gem 'select2-rails'
 gem 'aws-sdk-s3', require: false
